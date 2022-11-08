@@ -30,7 +30,7 @@ public class UserService implements Serializable{
         return users;
     }
 
-    public List<UserEntity> doSearchUser(UserModel userModel) {
+    public List<UserEntity> doSearchUser(UserModel userModel) throws ClientException, Exception {
         List<UserEntity> users = new ArrayList<>(); 
         UserSpec specs = new UserSpec(userModel);
         userRepo.findAll(specs).forEach(users::add);

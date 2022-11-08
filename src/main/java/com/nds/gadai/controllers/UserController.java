@@ -1,5 +1,7 @@
 package com.nds.gadai.controllers;
 
+import java.sql.Timestamp;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,18 +43,35 @@ public class UserController {
 
             // response
             ResponseModel response = new ResponseModel();
-            response.setMsg("New User is successfully added");
+            response.setCode(201);
+            response.setMessage("Created");
+            response.setDescription("New User is successfully added");
+            response.setTime(new Timestamp(System.currentTimeMillis()));
             response.setData(user);
+
             return ResponseEntity.ok(response);
 
         } catch (ClientException e) {
             ResponseModel response = new ResponseModel();
-            response.setMsg(e.getMessage());
+            response.setCode(400);
+            response.setMessage("Bad Request");
+            response.setDescription(e.getMessage());
+            response.setTime(new Timestamp(System.currentTimeMillis()));
+            response.setData(null);
+            // response.setMsg(e.getMessage());
+
             return ResponseEntity.badRequest().body(response);
+            
         } catch (Exception e) {
             ResponseModel response = new ResponseModel();
-            response.setMsg("Sorry, there is a failure on our server.");
+            response.setCode(500);
+            response.setMessage("Internal Server Error");
+            response.setDescription("Sorry, there is a failure on our server.");
+            response.setTime(new Timestamp(System.currentTimeMillis()));
+            response.setData(null);
+            // response.setMsg("Sorry, there is a failure on our server.");
             e.printStackTrace();
+
             return ResponseEntity.internalServerError().body(response);
         }
     }
@@ -65,28 +84,67 @@ public class UserController {
 
             // response
             ResponseModel response = new ResponseModel();
-            response.setMsg("Request successfully");
+            response.setCode(200);
+            response.setMessage("OK");
+            response.setDescription("Request successfully");
+            response.setTime(new Timestamp(System.currentTimeMillis()));
             response.setData(users);
+
             return ResponseEntity.ok(response);
 
         } catch (Exception e) {
             ResponseModel response = new ResponseModel();
-            response.setMsg("Sorry, there is a failure on our server.");
+            response.setCode(500);
+            response.setMessage("Internal Server Error");
+            response.setDescription("Sorry, there is a failure on our server.");
+            response.setTime(new Timestamp(System.currentTimeMillis()));
+            response.setData(null);
+            // response.setMsg("Sorry, there is a failure on our server.");
             e.printStackTrace();
+
             return ResponseEntity.internalServerError().body(response);
         }
     }
 
     @GetMapping(value= "/get/search")
     public ResponseEntity<ResponseModel> doSearchUserController(@RequestBody UserModel userModel) {
-        // request
-        List<UserEntity> users = userService.doSearchUser(userModel);
+        try {
+            // request
+            List<UserEntity> users = userService.doSearchUser(userModel);
+    
+            // response
+            ResponseModel response = new ResponseModel();
+            response.setCode(200);
+            response.setMessage("OK");
+            response.setDescription("Request successfully");
+            response.setTime(new Timestamp(System.currentTimeMillis()));
+            response.setData(users);
+            
+            return ResponseEntity.ok(response);
+            
+        } catch (ClientException e) {
+            ResponseModel response = new ResponseModel();
+            response.setCode(400);
+            response.setMessage("Bad Request");
+            response.setDescription(e.getMessage());
+            response.setTime(new Timestamp(System.currentTimeMillis()));
+            response.setData(null);
+            // response.setMsg(e.getMessage());
 
-        // response
-        ResponseModel response = new ResponseModel();
-        response.setMsg("Request successfully");
-        response.setData(users);
-        return ResponseEntity.ok(response);
+            return ResponseEntity.badRequest().body(response);
+            
+        } catch (Exception e) {
+            ResponseModel response = new ResponseModel();
+            response.setCode(500);
+            response.setMessage("Internal Server Error");
+            response.setDescription("Sorry, there is a failure on our server.");
+            response.setTime(new Timestamp(System.currentTimeMillis()));
+            response.setData(null);
+            // response.setMsg("Sorry, there is a failure on our server.");
+            e.printStackTrace();
+
+            return ResponseEntity.internalServerError().body(response);
+        }
     }
 
     @GetMapping(value = "/detail/{id}")
@@ -97,24 +155,46 @@ public class UserController {
 
             // response
             ResponseModel response = new ResponseModel();
-            response.setMsg("Request successfully");
+            response.setCode(200);
+            response.setMessage("OK");
+            response.setDescription("Request successfully");
+            response.setTime(new Timestamp(System.currentTimeMillis()));
             response.setData(user);
+
             return ResponseEntity.ok(response);
 
         } catch (ClientException e) {
             ResponseModel response = new ResponseModel();
-            response.setMsg(e.getMessage());
+            response.setCode(400);
+            response.setMessage("Bad Request");
+            response.setDescription(e.getMessage());
+            response.setTime(new Timestamp(System.currentTimeMillis()));
+            response.setData(null);
+            // response.setMsg(e.getMessage());
+            
             return ResponseEntity.badRequest().body(response);
 
         } catch (NotFoundException e){
             ResponseModel response = new ResponseModel();
-            response.setMsg(e.getMessage());
+            response.setCode(404);
+            response.setMessage("Not Found");
+            response.setDescription(e.getMessage());
+            response.setTime(new Timestamp(System.currentTimeMillis()));
+            response.setData(null);
+            // response.setMsg(e.getMessage());
+            
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-
+            
         } catch (Exception e) {
             ResponseModel response = new ResponseModel();
-            response.setMsg("Sorry, there is a failure on our server.");
+            response.setCode(500);
+            response.setMessage("Internal Server Error");
+            response.setDescription("Sorry, there is a failure on our server.");
+            response.setTime(new Timestamp(System.currentTimeMillis()));
+            response.setData(null);
+            // response.setMsg("Sorry, there is a failure on our server.");
             e.printStackTrace();
+
             return ResponseEntity.internalServerError().body(response);
         }
     }
@@ -127,24 +207,46 @@ public class UserController {
 
             // response
             ResponseModel response = new ResponseModel();
-            response.setMsg("User is successfully updated");
+            response.setCode(200);
+            response.setMessage("OK");
+            response.setDescription("User is successfully updated");
+            response.setTime(new Timestamp(System.currentTimeMillis()));
             response.setData(user);
+
             return ResponseEntity.ok(response);
 
         } catch (ClientException e) {
             ResponseModel response = new ResponseModel();
-            response.setMsg(e.getMessage());
+            response.setCode(400);
+            response.setMessage("Bad Request");
+            response.setDescription(e.getMessage());
+            response.setTime(new Timestamp(System.currentTimeMillis()));
+            response.setData(null);
+            // response.setMsg(e.getMessage());
+            
             return ResponseEntity.badRequest().body(response);
 
         } catch (NotFoundException e){
             ResponseModel response = new ResponseModel();
-            response.setMsg(e.getMessage());
+            response.setCode(404);
+            response.setMessage("Not Found");
+            response.setDescription(e.getMessage());
+            response.setTime(new Timestamp(System.currentTimeMillis()));
+            response.setData(null);
+            // response.setMsg(e.getMessage());
+            
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-
+            
         } catch (Exception e) {
             ResponseModel response = new ResponseModel();
-            response.setMsg("Sorry, there is a failure on our server.");
+            response.setCode(500);
+            response.setMessage("Internal Server Error");
+            response.setDescription("Sorry, there is a failure on our server.");
+            response.setTime(new Timestamp(System.currentTimeMillis()));
+            response.setData(null);
+            // response.setMsg("Sorry, there is a failure on our server.");
             e.printStackTrace();
+
             return ResponseEntity.internalServerError().body(response);
         }
     }
@@ -157,24 +259,46 @@ public class UserController {
 
             // response
             ResponseModel response = new ResponseModel();
-            response.setMsg("User is successfully deleted");
+            response.setCode(200);
+            response.setMessage("OK");
+            response.setDescription("User is successfully deleted");
+            response.setTime(new Timestamp(System.currentTimeMillis()));
             response.setData(user);
+
             return ResponseEntity.ok(response);
 
         } catch (ClientException e) {
             ResponseModel response = new ResponseModel();
-            response.setMsg(e.getMessage());
+            response.setCode(400);
+            response.setMessage("Bad Request");
+            response.setDescription(e.getMessage());
+            response.setTime(new Timestamp(System.currentTimeMillis()));
+            response.setData(null);
+            // response.setMsg(e.getMessage());
+            
             return ResponseEntity.badRequest().body(response);
 
         } catch (NotFoundException e){
             ResponseModel response = new ResponseModel();
-            response.setMsg(e.getMessage());
+            response.setCode(404);
+            response.setMessage("Not Found");
+            response.setDescription(e.getMessage());
+            response.setTime(new Timestamp(System.currentTimeMillis()));
+            response.setData(null);
+            // response.setMsg(e.getMessage());
+            
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-
+            
         } catch (Exception e) {
             ResponseModel response = new ResponseModel();
-            response.setMsg("Sorry, there is a failure on our server.");
+            response.setCode(500);
+            response.setMessage("Internal Server Error");
+            response.setDescription("Sorry, there is a failure on our server.");
+            response.setTime(new Timestamp(System.currentTimeMillis()));
+            response.setData(null);
+            // response.setMsg("Sorry, there is a failure on our server.");
             e.printStackTrace();
+
             return ResponseEntity.internalServerError().body(response);
         }
     }
