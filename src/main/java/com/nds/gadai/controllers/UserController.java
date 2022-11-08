@@ -119,7 +119,7 @@ public class UserController {
             response.setDescription("Request successfully");
             response.setTime(new Timestamp(System.currentTimeMillis()));
             response.setData(users);
-            
+
             return ResponseEntity.ok(response);
             
         } catch (ClientException e) {
@@ -147,11 +147,11 @@ public class UserController {
         }
     }
 
-    @GetMapping(value = "/detail/{id}")
-    public ResponseEntity<ResponseModel> doGetDetailUserController(@PathVariable String id) {
+    @GetMapping(value = "/detail")
+    public ResponseEntity<ResponseModel> doGetDetailUserController(@RequestBody UserModel userModel) {
         try {
             // request
-            UserEntity user = userService.doGetDetailUser(id);
+            UserEntity user = userService.doGetDetailUser(userModel);
 
             // response
             ResponseModel response = new ResponseModel();

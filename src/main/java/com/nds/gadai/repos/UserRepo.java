@@ -19,5 +19,11 @@ public interface UserRepo extends JpaRepository<UserEntity, Integer>, JpaSpecifi
     UserEntity findByUserId(
         @Param("id") String id
     );
+
+    // Query for count how many User Id on database
+    @Query(value = "SELECT COUNT(*) FROM ms_user WHERE rec_status = '"
+        + GlobalConstant.REC_STATUS_ACTIVE
+        + "' and LOWER(id) = LOWER(:id)", nativeQuery = true)
+    Integer countById(@Param("id") String id);
     
 }

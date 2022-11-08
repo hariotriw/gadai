@@ -49,11 +49,6 @@ public class UserSpec implements Specification<UserEntity> {
                 "%" + userModel.getPhoneNumber().toLowerCase() + "%"));
         }
 
-        // phone number criteria
-        if(userModel.getActorId() != null){
-            p.getExpressions().add(cb.equal(root.get("actorId"), userModel.getActorId()));
-        }
-
         // rec_status criteria
         if(userModel.getRecStatus() != null && (userModel.getRecStatus().trim().equalsIgnoreCase(GlobalConstant.REC_STATUS_ACTIVE)
                 || userModel.getRecStatus().trim().equalsIgnoreCase(GlobalConstant.REC_STATUS_NON_ACTIVE))){
