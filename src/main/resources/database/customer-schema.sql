@@ -20,4 +20,5 @@ WITH (
     OIDS=FALSE
 );
 
+-- Query All data in ms_user table
 SELECT * FROM ms_customer;
