@@ -1,5 +1,5 @@
 -- Delete ms_product table if exist
-DROP TABLE IF EXIST tx_payment;
+DROP TABLE IF EXISTS tx_payment;
 
 --create ms_usert table
 CREATE TABLE tx_payment(

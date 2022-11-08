@@ -1,5 +1,5 @@
 -- Delete ms_product table if exist
-DROP TABLE IF EXIST ms_user;
+DROP TABLE IF EXISTS ms_user;
 
 --create ms_usert table
 CREATE TABLE ms_user(

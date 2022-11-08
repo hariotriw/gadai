@@ -1,5 +1,5 @@
 -- Delete ms_product table if exist
-DROP TABLE IF EXIST tx_pawned_goods;
+DROP TABLE IF EXISTS tx_pawned_goods;
 
 --create ms_usert table
 CREATE TABLE tx_pawned_goods(

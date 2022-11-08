@@ -1,5 +1,5 @@
 -- Delete ms_product table if exist
-DROP TABLE IF EXIST tx_fixed_installment;
+DROP TABLE IF EXISTS tx_fixed_installment;
 
 --create ms_usert table
 CREATE TABLE tx_fixed_installment(
