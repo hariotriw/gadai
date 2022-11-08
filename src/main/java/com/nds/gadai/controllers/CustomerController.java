@@ -130,4 +130,17 @@ public class CustomerController {
                 return ResponseEntity.internalServerError().body(response);
         }
     }
+
+    @GetMapping(value = "/usaha")
+    public ResponseEntity<ResponseModel> doGetListJenisUsahaController() {
+        // Request
+        String[] customer = customerService.doGetListJenisUsaha();
+
+        // Response
+        ResponseModel response = new ResponseModel();
+        response.setMsg("Request succesful");
+        response.setData(customer);
+
+        return ResponseEntity.ok(response);
+    }
 }

@@ -15,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 public class CustomerEntity {
     @Id
-    @GenericGenerator(name = "customer_id_seq", strategy = "id.co.nds.catalogue.generators.CustomerIdGenerator")
+    @GenericGenerator(name = "customer_id_seq", strategy = "com.nds.gadai.generators.CustomerIdGenerator")
     @GeneratedValue(generator = "customer_id_seq")
     @Column(name = "id")
     private String id;

@@ -19,6 +19,10 @@ public class CustomerSpec implements Specification<CustomerEntity>{
         this.customerModel = customerModel;
     }
 
+    private String businessType(String s) {
+        return GlobalConstant.BUSINESS_TYPE[Integer.valueOf(s)-1];
+    }
+
     @Override
     public Predicate toPredicate(Root<CustomerEntity> root, CriteriaQuery<?> cq,
             CriteriaBuilder cb) {
@@ -50,8 +54,9 @@ public class CustomerSpec implements Specification<CustomerEntity>{
 
         // business type criteria
         if (customerModel.getBusinessType() != null && customerModel.getBusinessType().length() > 0) {
+            String business = businessType(customerModel.getBusinessType());
             p.getExpressions().add(cb.like(cb.lower(root.get("businessType")),
-            "%" + customerModel.getBusinessType().toLowerCase() + "%"));
+            "%" + business.toLowerCase() + "%"));
         }
 
         // rec_status criteria

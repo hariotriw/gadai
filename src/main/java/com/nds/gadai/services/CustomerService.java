@@ -119,4 +119,8 @@ public class CustomerService implements Serializable{
         return customerRepo.save(customer);
     }
 
+    public String[] doGetListJenisUsaha() {
+        return GlobalConstant.BUSINESS_TYPE;
+    }
+
 }

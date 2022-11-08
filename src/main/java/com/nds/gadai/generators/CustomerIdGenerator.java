@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Date;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
@@ -23,8 +23,8 @@ public class CustomerIdGenerator implements IdentifierGenerator {
             ResultSet rs = ps.executeQuery();
             if (rs.next()){
                 int seq = rs.getInt("seq") + 1;
-                SimpleDateFormat formatter = new SimpleDateFormat("yyMM");
-                String date = formatter.format(Calendar.getInstance());
+                SimpleDateFormat simpleformat = new SimpleDateFormat("yyMM");
+                String date = simpleformat.format(new Date());
                 String code = String.format(date + "%06d", seq);
                 System.out.println("Generated Stock Code: " + code);
                 return code;

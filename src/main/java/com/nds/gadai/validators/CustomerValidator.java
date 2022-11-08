@@ -24,8 +24,8 @@ public class CustomerValidator {
     }
 
     public void validateId(String categoryId) throws ClientException {
-        if (categoryId.length() != 10 || categoryId.chars().allMatch(Character::isDigit)){
-            throw new ClientException("Customer id contains 10 digits and is all numeric");
+        if (categoryId.length() != 10) {
+            throw new ClientException("Customer id contains 10 digits");
         }
     }
 
