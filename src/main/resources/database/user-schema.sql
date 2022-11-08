@@ -6,7 +6,7 @@ CREATE TABLE ms_user(
     id SERIAL PRIMARY KEY NOT NULL,
     name VARCHAR(30) NOT NULL,
     phone_number VARCHAR(12) NULL UNIQUE,
-    max_limit_trx INT4(17) NOT NULL,
+    max_limit numeric(17,2) NOT NULL,
     description VARCHAR(50),
 
     created_date TIMESTAMP NULL,
