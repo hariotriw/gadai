@@ -12,11 +12,11 @@ CREATE TABLE tx_fixed_installment(
     product_desc VARCHAR(255),
 
     created_date TIMESTAMP NULL,
-    creator_id INT4 NOT NULL,
+    creator_id VARCHAR(15) NOT NULL,
     updated_date TIMESTAMP NULL,
-    updater_id INT4 NULL,
+    updater_id VARCHAR(15) NULL,
     deleted_date TIMESTAMP NULL,
-    deleter_id INT4 NULL,
+    deleter_id VARCHAR(15) NULL,
     rec_status VARCHAR(1) NULL DEFAULT 'N'::VARCHAR
 )
 WITH (

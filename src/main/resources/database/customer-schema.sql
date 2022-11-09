@@ -8,12 +8,12 @@ CREATE TABLE ms_customer (
 	gender          VARCHAR(1)  NOT NULL,
 	business_type   VARCHAR(30) NOT NULL, 
 	max_limit       NUMERIC(17,2)   NOT NULL, 
-    created_date    TIMESTAMP   NOT NULL,
-    creator_id      INT4        NULL,
-    updated_date    TIMESTAMP   NULL,
-    updater_id      INT4        NULL,
-    deleted_date    TIMESTAMP   NULL,
-    deleter_id      INT4        NULL,
+    created_date    TIMESTAMP NULL,
+    creator_id      VARCHAR(15) NOT NULL,
+    updated_date    TIMESTAMP NULL,
+    updater_id      VARCHAR(15) NULL,
+    deleted_date    TIMESTAMP NULL,
+    deleter_id      VARCHAR(15) NULL,
     rec_status      VARCHAR(1)  NULL DEFAULT 'N'::VARCHAR
 )
 WITH (

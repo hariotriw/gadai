@@ -8,24 +8,24 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.nds.gadai.entities.CustomerEntity;
+import com.nds.gadai.entities.ProductEntity;
 import com.nds.gadai.globals.GlobalConstant;
 
 @Repository
-public interface CustomerRepo extends JpaRepository<CustomerEntity, Integer>, JpaSpecificationExecutor<CustomerEntity> {
+public interface ProductRepo extends JpaRepository<ProductEntity, Integer>, JpaSpecificationExecutor<ProductEntity> {
 
-    @Query(value = "SELECT * FROM ms_customer WHERE rec_status = '"
+    @Query(value = "SELECT * FROM ms_product WHERE rec_status = '"
                     + GlobalConstant.REC_STATUS_ACTIVE
                     + "'AND LOWER(id) = LOWER(:id)",nativeQuery = true)
-        Optional<CustomerEntity> findById(@Param("id") String id);  
+        Optional<ProductEntity> findById(@Param("id") String id);  
     
-    @Query(value = "SELECT COUNT(*) FROM ms_customer WHERE rec_status = '"
+    @Query(value = "SELECT COUNT(*) FROM ms_product WHERE rec_status = '"
                     + GlobalConstant.REC_STATUS_ACTIVE
                     + "'AND LOWER(id) = LOWER(:id)",nativeQuery = true)
         long countById(@Param("id") String id);
-
-    @Query(value = "SELECT * FROM ms_customer WHERE rec_status = '"
-                + GlobalConstant.REC_STATUS_ACTIVE
-                + "'AND LOWER(id) = LOWER(:id)",nativeQuery = true)
-    CustomerEntity findByUserId(@Param("id") String id);  
+        
+    @Query(value = "SELECT * FROM ms_product WHERE rec_status = '"
+        + GlobalConstant.REC_STATUS_ACTIVE
+        + "'AND id) = :productId",nativeQuery = true)
+    ProductEntity findByProductId(@Param("productId") Integer productId); 
 }

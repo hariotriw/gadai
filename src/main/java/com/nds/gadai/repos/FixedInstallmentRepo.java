@@ -1,12 +1,35 @@
 package com.nds.gadai.repos;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.nds.gadai.entities.FixedInstallmentEntiy;
+import com.nds.gadai.globals.GlobalConstant;
 
 @Repository
 public interface FixedInstallmentRepo extends JpaRepository<FixedInstallmentEntiy, String>, JpaSpecificationExecutor<FixedInstallmentEntiy>{
     
+    // @Query(value = "SELECT fi.* FROM tx_fixed_installment as fi " +
+    // "JOIN ms_customer as c ON fi.customer_id = c.id " +
+    // "JOIN ms_product as p ON fi.product_id = p.id " +
+    // "JOIN tx_installment as i ON fi.transaction_number = 'i.transaction_number'" +
+    // "JOIN tx_pawned_goods as pg ON fi.transaction_number = pg.transaction_number " +
+    // "WHERE fi.rec_status = '" + GlobalConstant.REC_STATUS_ACTIVE + "' and fi.transaction_number = ?1", nativeQuery = true)
+    // List<FixedInstallmentEntiy> findDetailTransaction(String transactionNumber);
+
+    @Query(value = "SELECT fi.*, i.installment_to as cicilan_ke, pg.goods_name FROM tx_fixed_installment as fi " +
+    "JOIN ms_product as p ON fi.product_id = p.id " +
+    "JOIN tx_installment as i ON fi.transaction_number = i.transaction_number " +
+    "JOIN tx_pawned_goods as pg ON fi.transaction_number = pg.transaction_number " +
+    "WHERE fi.rec_status = 'A' and fi.transaction_number = ?1", nativeQuery = true)
+    List<FixedInstallmentEntiy> findDetailTransaction(String transactionNumber);
+
+    @Query(value = "SELECT * FROM tx_fixed_installment where transaction_number = ?1"
+    , nativeQuery = true)
+    FixedInstallmentEntiy getFixedInstallmentByTransactionNumber(String transactionNumber);
+
 }

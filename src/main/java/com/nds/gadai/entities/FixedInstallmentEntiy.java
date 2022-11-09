@@ -1,6 +1,7 @@
 package com.nds.gadai.entities;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -25,10 +26,10 @@ public class FixedInstallmentEntiy {
     private String transactionNumber;
 
     @OneToMany(targetEntity = InstallmentEntity.class, mappedBy = "transactionNumber")
-    private List<InstallmentEntity> installments;
+    private List<InstallmentEntity> installments = new ArrayList<>();;
 
     @OneToMany(targetEntity = PawnedGoodsEntity.class, mappedBy = "transactionNumber")
-    private List<PawnedGoodsEntity> pawnedGoods;
+    private List<PawnedGoodsEntity> pawnedGoods = new ArrayList<>();
 
     @Column(name = "customer_id")
     private String customerId;

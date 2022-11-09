@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -40,7 +41,7 @@ public class InstallmentEntity {
     private BigDecimal totalInstallment;
 
     @Column(name = "installment_status")
-    private BigDecimal installmentStatus;
+    private String installmentStatus;
 
     @Column(name = "active_installment_date")
     private Timestamp activeInstallmentDate;
@@ -125,11 +126,11 @@ public class InstallmentEntity {
         this.totalInstallment = totalInstallment;
     }
 
-    public BigDecimal getInstallmentStatus() {
+    public String getInstallmentStatus() {
         return installmentStatus;
     }
 
-    public void setInstallmentStatus(BigDecimal installmentStatus) {
+    public void setInstallmentStatus(String installmentStatus) {
         this.installmentStatus = installmentStatus;
     }
 
