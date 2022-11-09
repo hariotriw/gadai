@@ -1,14 +1,16 @@
 package com.nds.gadai.models;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 public class UserModel extends RecordModel{
 
     private String id;
     private String name;
     private String phoneNumber;
-    private BigDecimal max_limit;
+    private BigDecimal maxLimit;
     private String description;
+    private Timestamp regDate;
     
     public String getId() {
         return id;
@@ -28,11 +30,17 @@ public class UserModel extends RecordModel{
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    public BigDecimal getMax_limit() {
-        return max_limit;
+    public BigDecimal getMaxLimit() {
+        return maxLimit;
     }
-    public void setMax_limit(BigDecimal max_limit) {
-        this.max_limit = max_limit;
+    public void setMax_limit(BigDecimal maxLimit) {
+        this.maxLimit = maxLimit;
+    }
+    public Timestamp getRegDate() {
+        return regDate;
+    }
+    public void setRegDate(Timestamp regDate) {
+        this.regDate = regDate;
     }
     public String getDescription() {
         return description;
