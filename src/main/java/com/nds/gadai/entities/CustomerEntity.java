@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -21,21 +24,28 @@ public class CustomerEntity {
     private String id;
 
     @Column(name = "name")
+    @NotEmpty(message = "Customer name is required")
     private String name;
 
     @Column(name = "id_number")
+    @NotEmpty(message = "Id number is required")
     private String idNumber;
 
     @Column(name = "phone_number")
+    @Pattern(regexp = "^(62|0)8[1-9][0-9]{6,9}$",
+    message = "Call number contains nine to twelve digits and starts with 0")
     private String phoneNumber;
 
     @Column(name = "gender")
+    @NotEmpty(message = "Customer gender is required")
     private String gender;
 
     @Column(name = "business_type")
+    @NotEmpty(message = "Business type is required")
     private String businessType;
 
     @Column(name = "max_limit")
+    @NotNull(message = "Maximum limit is required")
     private Double maxLimit;
 
     @Column(name = "created_date")
@@ -48,13 +58,13 @@ public class CustomerEntity {
     private Timestamp deletedDate;
 
     @Column(name = "creator_id")
-    private Integer creatorId;
+    private String creatorId;
 
     @Column(name = "updater_id")
-    private Integer updaterId;
+    private String updaterId;
 
     @Column(name = "deleter_id")
-    private Integer deleterId;
+    private String deleterId;
 
     @Column(name = "rec_status")
     private String recStatus;
@@ -139,27 +149,27 @@ public class CustomerEntity {
         this.deletedDate = deletedDate;
     }
 
-    public Integer getCreatorId() {
+    public String getCreatorId() {
         return creatorId;
     }
 
-    public void setCreatorId(Integer creatorId) {
+    public void setCreatorId(String creatorId) {
         this.creatorId = creatorId;
     }
 
-    public Integer getUpdaterId() {
+    public String getUpdaterId() {
         return updaterId;
     }
 
-    public void setUpdaterId(Integer updaterId) {
+    public void setUpdaterId(String updaterId) {
         this.updaterId = updaterId;
     }
 
-    public Integer getDeleterId() {
+    public String getDeleterId() {
         return deleterId;
     }
 
-    public void setDeleterId(Integer deleterId) {
+    public void setDeleterId(String deleterId) {
         this.deleterId = deleterId;
     }
 

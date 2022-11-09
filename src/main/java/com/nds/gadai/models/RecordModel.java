@@ -1,17 +1,17 @@
 package com.nds.gadai.models;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class RecordModel {
     // record
-    @NotEmpty(message = "User id is required")
-    private Integer actorId;
+    @NotNull(message = "User id is required")
+    private String actorId;
     private String recStatus;
     
-    public Integer getActorId() {
+    public String getActorId() {
         return actorId;
     }
-    public void setActorId(Integer actorId) {
+    public void setActorId(String actorId) {
         this.actorId = actorId;
     }
     public String getRecStatus() {

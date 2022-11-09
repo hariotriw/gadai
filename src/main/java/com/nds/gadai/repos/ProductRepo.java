@@ -14,12 +14,12 @@ import com.nds.gadai.globals.GlobalConstant;
 @Repository
 public interface ProductRepo extends JpaRepository<ProductEntity, Integer>, JpaSpecificationExecutor<ProductEntity> {
 
-    @Query(value = "SELECT * FROM ms_prodcut WHERE rec_status = '"
+    @Query(value = "SELECT * FROM ms_product WHERE rec_status = '"
                     + GlobalConstant.REC_STATUS_ACTIVE
                     + "'AND LOWER(id) = LOWER(:id)",nativeQuery = true)
         Optional<ProductEntity> findById(@Param("id") String id);  
     
-    @Query(value = "SELECT COUNT(*) FROM ms_prodcut WHERE rec_status = '"
+    @Query(value = "SELECT COUNT(*) FROM ms_product WHERE rec_status = '"
                     + GlobalConstant.REC_STATUS_ACTIVE
                     + "'AND LOWER(id) = LOWER(:id)",nativeQuery = true)
         long countById(@Param("id") String id);

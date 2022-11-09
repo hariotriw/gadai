@@ -5,51 +5,67 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.persistence.Id;
 
 @Entity
 @Table(name = "ms_product")
 public class ProductEntity {
     @Id
+    @Pattern(regexp = "^(PRD)\\d{3}", message = "Product Id starts with PRD and contains six character")
     private String id;
 
     @Column(name = "type")
+    @NotEmpty(message = "Product type is required")
     private String type;
     
     @Column(name = "name")
+    @NotEmpty(message = "Product name is required")
     private String name;
 
     @Column(name = "description")
     private String description;
 
     @Column(name = "ltv")
+    @NotNull(message = "ltv is required")
     private Double ltv;
 
     @Column(name = "tenor")
+    @NotNull(message = "tenor is required")
     private Integer tenor;
 
     @Column(name = "admin_opening_type")
+    @NotNull(message = "admin opening payment type is required")
     private String adminOpeningType;
     
     @Column(name = "admin_opening_cost")
+    @NotNull(message = "admin opening cost is required")
     private Double adminOpeningCost;
 
     @Column(name = "admin_closing_type")
+    @NotNull(message = "admin closing payment type is required")
     private String adminClosingType;
 
     @Column(name = "admin_closing_cost")
+    @NotNull(message = "admin closing cost is required")
     private Double adminClosingCost;
 
     @Column(name = "saving_service_percent")
+    @NotNull(message = "saving service percentage is required")
     private Double savingServicePercent;
 
     @Column(name = "saving_service_numeric")
+    @NotNull(message = "saving service numeric is required")
     private Integer savingServiceNumeric;
 
     @Column(name = "penalty_bill_percent")
+    @NotNull(message = "penalty bill percentage is required")
     private Double penaltyBillPercent;
 
     @Column(name = "penalty_bill_numeric")
+    @NotNull(message = "penalty bill numeric is required")
     private Integer penaltyBillNumeric;
 
     @Column(name = "created_date")
@@ -62,13 +78,13 @@ public class ProductEntity {
     private Timestamp deletedDate;
 
     @Column(name = "creator_id")
-    private Integer creatorId;
+    private String creatorId;
 
     @Column(name = "updater_id")
-    private Integer updaterId;
+    private String updaterId;
 
     @Column(name = "deleter_id")
-    private Integer deleterId;
+    private String deleterId;
 
     @Column(name = "rec_status")
     private String recStatus;
@@ -97,27 +113,27 @@ public class ProductEntity {
         this.deletedDate = deletedDate;
     }
 
-    public Integer getCreatorId() {
+    public String getCreatorId() {
         return creatorId;
     }
 
-    public void setCreatorId(Integer creatorId) {
+    public void setCreatorId(String creatorId) {
         this.creatorId = creatorId;
     }
 
-    public Integer getUpdaterId() {
+    public String getUpdaterId() {
         return updaterId;
     }
 
-    public void setUpdaterId(Integer updaterId) {
+    public void setUpdaterId(String updaterId) {
         this.updaterId = updaterId;
     }
 
-    public Integer getDeleterId() {
+    public String getDeleterId() {
         return deleterId;
     }
 
-    public void setDeleterId(Integer deleterId) {
+    public void setDeleterId(String deleterId) {
         this.deleterId = deleterId;
     }
 
