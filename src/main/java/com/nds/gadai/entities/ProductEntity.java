@@ -3,16 +3,15 @@ package com.nds.gadai.entities;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.Id;
-
+@Entity
+@Table(name = "ms_product")
 public class ProductEntity {
     @Id
-    @GenericGenerator(name = "product_id_seq", strategy = "com.nds.gadai.generators.ProductIdGenerator")
-    @GeneratedValue(generator = "prodcut_id_seq")
-    private Integer id;
+    private String id;
 
     @Column(name = "type")
     private String type;
@@ -38,7 +37,7 @@ public class ProductEntity {
     @Column(name = "admin_closing_type")
     private String adminClosingType;
 
-    @Column(name = "admin_closing_type")
+    @Column(name = "admin_closing_cost")
     private Double adminClosingCost;
 
     @Column(name = "saving_service_percent")
@@ -130,11 +129,11 @@ public class ProductEntity {
         this.recStatus = recStatus;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

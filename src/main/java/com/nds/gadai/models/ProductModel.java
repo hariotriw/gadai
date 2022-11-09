@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 public class ProductModel extends RecordModel{
@@ -21,58 +22,55 @@ public class ProductModel extends RecordModel{
 
     private String description;
 
-    @NotEmpty(message = "Loan to Value is required")
+    @NotNull(message = "Loan to Value is required")
     @Min(value = 0, message = "Percentage must be between 0 to 100")
     @Max(value = 100, message = "Percentage must be between 0 to 100")
     private BigDecimal ltv;
 
-    @NotEmpty(message = "Ltv range is required")
     @Min(value = 0, message = "Percentage must be between 0 to 100")
     @Max(value = 100, message = "Percentage must be between 0 to 100")
     private BigDecimal ltvLow;
 
-    @NotEmpty(message = "Ltv range is required")
+    
     @Min(value = 0, message = "Percentage must be between 0 to 100")
     @Max(value = 100, message = "Percentage must be between 0 to 100")
     private BigDecimal ltvHigh;
 
-    @NotEmpty(message = "Tenor is required")
+    @NotNull(message = "Tenor is required")
     private Integer tenor;
 
     @NotEmpty(message = "Admin Opening Type is required")
     @Pattern(regexp = "[1-2]", message = "Must pick product type from number 1-2")
     private String adminOpeningType;
 
-    @NotEmpty(message = "Admin Opening Cost is required")
+    @NotNull(message = "Admin Opening Cost is required")
     private BigDecimal adminOpeningCost;
 
     @NotEmpty(message = "Admin Closing Type is required")
     @Pattern(regexp = "[1-2]", message = "Must pick product type from number 1-2")
     private String adminClosingType;
 
-    @NotEmpty(message = "Admin Closing Cost is required")
+    @NotNull(message = "Admin Closing Cost is required")
     private BigDecimal adminClosingCost;
 
-    @NotEmpty(message = "Saving service percent is required")
+    @NotNull(message = "Saving service percent is required")
     private BigDecimal savingServicePercent;
 
-    @NotEmpty(message = "Saving service range is required")
     @Min(value = 0, message = "Percentage must be between 0 to 100")
     @Max(value = 100, message = "Percentage must be between 0 to 100")
     private BigDecimal savingServicePercentLow;
 
-    @NotEmpty(message = "Saving service range is required")
     @Min(value = 0, message = "Percentage must be between 0 to 100")
     @Max(value = 100, message = "Percentage must be between 0 to 100")
     private BigDecimal savingServicePercentHigh;
 
-    @NotEmpty(message = "Saving service numeric is required")
+    @NotNull(message = "Saving service numeric is required")
     private Integer savingServiceNumeric;
 
-    @NotEmpty(message = "penalty bill percent is required")
+    @NotNull(message = "penalty bill percent is required")
     private BigDecimal penaltyBillPercent;
     
-    @NotEmpty(message = "penalty bill numeric is required")
+    @NotNull(message = "penalty bill numeric is required")
     private Integer penaltyBillNumeric;
 
     public String getId() {

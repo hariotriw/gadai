@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS ms_product;
 
 --create ms_usert table
 CREATE TABLE ms_product(
-    id SERIAL PRIMARY KEY NOT NULL,
+    id VARCHAR(6) PRIMARY KEY NOT NULL,
     type VARCHAR(30) NOT NULL,
     name VARCHAR(50) NOT NULL,
     description VARCHAR(255),
