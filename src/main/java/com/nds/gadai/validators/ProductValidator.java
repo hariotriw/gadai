@@ -20,12 +20,6 @@ public class ProductValidator {
         }
     }
 
-    public void nullCheckLtv(BigDecimal ltv) throws ClientException {
-        if (ltv == null) {
-            throw new ClientException("ltv is required");
-        }
-    }
-
     public void nullCheckSavingServicePercent(BigDecimal savingService) throws ClientException {
         if (savingService == null) {
             throw new ClientException("ltv is required");
@@ -53,7 +47,7 @@ public class ProductValidator {
     }
 
     public void validateSavingServiceNumeric(ProductModel productModel) throws ClientException {
-        if ((productModel.getSavingServiceNumeric().intValue() > productModel.getTenor()) &&
+        if ((productModel.getSavingServiceNumeric().intValue() > productModel.getTenor()) ||
         (productModel.getTenor() % productModel.getSavingServiceNumeric().intValue() != 0)){
             throw new ClientException("Saving Service period must be lower than tenor and must be a factor of tenor");
         }

@@ -4,73 +4,57 @@ import java.math.BigDecimal;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 public class ProductModel extends RecordModel{
     
-    @Pattern(regexp = "^(PRD)\\d{3}", message = "Product Id starts with PRD and contains six character")
     private String id;
 
-    @NotEmpty(message = "Product type is required")
     @Pattern(regexp = "[1-2]", message = "Must pick product type from number 1-2")
     private String type;
 
-    @NotEmpty(message = "Product name is required")
     private String name;
-
+    
     private String description;
 
-    @NotNull(message = "Loan to Value is required")
-    @Min(value = 0, message = "Percentage must be between 0 to 100")
-    @Max(value = 100, message = "Percentage must be between 0 to 100")
+    @Min(value = 0, message = "Percentage must be between 0 to 100%")
+    @Max(value = 1, message = "Percentage must be between 0 to 100%")
     private BigDecimal ltv;
 
-    @Min(value = 0, message = "Percentage must be between 0 to 100")
-    @Max(value = 100, message = "Percentage must be between 0 to 100")
+    @Min(value = 0, message = "Percentage must be between 0 to 100%")
+    @Max(value = 1, message = "Percentage must be between 0 to 100%")
     private BigDecimal ltvLow;
 
-    
-    @Min(value = 0, message = "Percentage must be between 0 to 100")
-    @Max(value = 100, message = "Percentage must be between 0 to 100")
+    @Min(value = 0, message = "Percentage must be between 0 to 100%")
+    @Max(value = 1, message = "Percentage must be between 0 to 100%")
     private BigDecimal ltvHigh;
 
-    @NotNull(message = "Tenor is required")
     private Integer tenor;
 
-    @NotEmpty(message = "Admin Opening Type is required")
     @Pattern(regexp = "[1-2]", message = "Must pick product type from number 1-2")
     private String adminOpeningType;
 
-    @NotNull(message = "Admin Opening Cost is required")
     private BigDecimal adminOpeningCost;
 
-    @NotEmpty(message = "Admin Closing Type is required")
     @Pattern(regexp = "[1-2]", message = "Must pick product type from number 1-2")
     private String adminClosingType;
 
-    @NotNull(message = "Admin Closing Cost is required")
     private BigDecimal adminClosingCost;
 
-    @NotNull(message = "Saving service percent is required")
     private BigDecimal savingServicePercent;
 
-    @Min(value = 0, message = "Percentage must be between 0 to 100")
-    @Max(value = 100, message = "Percentage must be between 0 to 100")
+    @Min(value = 0, message = "Percentage must be between 0 to 100%")
+    @Max(value = 1, message = "Percentage must be between 0 to 100%")
     private BigDecimal savingServicePercentLow;
 
-    @Min(value = 0, message = "Percentage must be between 0 to 100")
-    @Max(value = 100, message = "Percentage must be between 0 to 100")
+    @Min(value = 0, message = "Percentage must be between 0 to 100%")
+    @Max(value = 1, message = "Percentage must be between 0 to 100%")
     private BigDecimal savingServicePercentHigh;
 
-    @NotNull(message = "Saving service numeric is required")
     private Integer savingServiceNumeric;
 
-    @NotNull(message = "penalty bill percent is required")
     private BigDecimal penaltyBillPercent;
     
-    @NotNull(message = "penalty bill numeric is required")
     private Integer penaltyBillNumeric;
 
     public String getId() {

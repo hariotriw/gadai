@@ -1,6 +1,7 @@
 package com.nds.gadai.services;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,9 +85,6 @@ public class ProductService implements Serializable{
 
     public ProductEntity doUpdateProduk(ProductModel productModel) throws ClientException, NotFoundException {
         productValidator.nullCheckId(productModel.getId());
-        productValidator.validateSavingServiceNumeric(productModel);
-        productValidator.validateAdminOpeningCost(productModel);
-        productValidator.validateAdminClosingCost(productModel);
 
         Long count = productRepo.countById(productModel.getId());
         if (count == 0) {
@@ -109,22 +107,42 @@ public class ProductService implements Serializable{
         }
 
         if (productModel.getTenor() != null) {
+            if (productModel.getSavingServiceNumeric() == null) {
+                productModel.setSavingServiceNumeric(product.getSavingServiceNumeric());
+            }
+            productValidator.validateSavingServiceNumeric(productModel);
             product.setTenor(productModel.getTenor());
         }
 
         if (productModel.getAdminOpeningType() != null) {
+            if (productModel.getAdminOpeningCost() == null) {
+                productModel.setAdminOpeningCost(BigDecimal.valueOf(product.getAdminOpeningCost().doubleValue()));
+            }
+            productValidator.validateAdminOpeningCost(productModel);
             product.setAdminOpeningType(adminPaymentType(productModel.getAdminOpeningType()));
         }
 
         if (productModel.getAdminOpeningCost() != null) {
+            if (productModel.getAdminOpeningType() == null) {
+                productModel.setAdminOpeningType(product.getAdminOpeningType());
+            }
+            productValidator.validateAdminOpeningCost(productModel);
             product.setAdminOpeningCost(productModel.getAdminOpeningCost().doubleValue());
         }
 
         if (productModel.getAdminClosingType() != null) {
+            if (productModel.getAdminClosingCost() == null) {
+                productModel.setAdminClosingCost(BigDecimal.valueOf(product.getAdminClosingCost()));
+            }
+            productValidator.validateAdminClosingCost(productModel);
             product.setAdminClosingType(adminPaymentType(productModel.getAdminClosingType()));
         }
 
         if (productModel.getAdminClosingCost() != null) {
+            if (productModel.getAdminClosingType() == null) {
+                productModel.setAdminClosingType(product.getAdminClosingType());
+            }
+            productValidator.validateAdminClosingCost(productModel);
             product.setAdminClosingCost(productModel.getAdminClosingCost().doubleValue());
         }
 
@@ -133,6 +151,10 @@ public class ProductService implements Serializable{
         }
 
         if (productModel.getSavingServiceNumeric() != null) {
+            if (productModel.getTenor() == null) {
+                productModel.setTenor(product.getTenor());
+            }
+            productValidator.validateSavingServiceNumeric(productModel);
             product.setSavingServiceNumeric(productModel.getSavingServiceNumeric());
         }
 
