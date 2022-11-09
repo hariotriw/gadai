@@ -29,7 +29,18 @@ public class CustomerService implements Serializable{
     }
 
     public CustomerEntity doInsertPelanggan(CustomerModel customerModel) throws ClientException {
+        Long count = customerRepo.countByPhoneNumber(customerModel.getPhoneNumber());
+        if (count> 0) {
+            throw new ClientException("Customer Phone number already existed");
+        }
+
+        count = customerRepo.countByIdNumber(customerModel.getIdNumber());
+        if (count > 0) {
+            throw new ClientException("Customer ID number already existed");
+        }
+        
         // Process
+
         CustomerEntity customer = new CustomerEntity();
         customer.setName(customerModel.getName());
         customer.setIdNumber(customerModel.getIdNumber());

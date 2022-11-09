@@ -48,7 +48,7 @@ public class CustomerController {
     }
 
     @GetMapping(value = "/search")
-    public ResponseEntity<ResponseModel> doSearchPelangganController(@RequestBody CustomerModel customerModel) {
+    public ResponseEntity<ResponseModel> doSearchPelangganController(@Valid @RequestBody CustomerModel customerModel) {
         try {
             // Request
             List<CustomerEntity> customers = customerService.doSearchPelanggan(customerModel);
@@ -69,7 +69,7 @@ public class CustomerController {
     }
 
     @GetMapping(value = "/get")
-    public ResponseEntity<ResponseModel> doGetDetailPelangganController(@RequestBody CustomerModel customerModel) {
+    public ResponseEntity<ResponseModel> doGetDetailPelangganController(@Valid @RequestBody CustomerModel customerModel) {
         try {
             // Request
             CustomerEntity customer = customerService.doGetDetailPelanggan(customerModel);
@@ -90,7 +90,7 @@ public class CustomerController {
     }
 
     @PutMapping(value = "/update")
-    public ResponseEntity<ResponseModel> doUpdatePelangganController(@RequestBody CustomerModel customerModel) {
+    public ResponseEntity<ResponseModel> doUpdatePelangganController(@Valid @RequestBody CustomerModel customerModel) {
         try {
             // Request
             CustomerEntity customer = customerService.doUpdatePelanggan(customerModel);
@@ -111,7 +111,7 @@ public class CustomerController {
     }
 
     @DeleteMapping(value = "/delete")
-    public ResponseEntity<ResponseModel> doDeletePelangganController(@RequestBody CustomerModel customerModel) {
+    public ResponseEntity<ResponseModel> doDeletePelangganController(@Valid @RequestBody CustomerModel customerModel) {
         try {
             // Request
             CustomerEntity customer = customerService.doDeletePelanggan(customerModel);
