@@ -9,11 +9,11 @@ CREATE TABLE ms_customer (
 	business_type   VARCHAR(30) NOT NULL, 
 	max_limit       NUMERIC(17,2)   NOT NULL, 
     created_date    TIMESTAMP   NOT NULL,
-    creator_id      INT4        NULL,
+    creator_id      VARCHAR(15) NULL,
     updated_date    TIMESTAMP   NULL,
-    updater_id      INT4        NULL,
+    updater_id      VARCHAR(15) NULL,
     deleted_date    TIMESTAMP   NULL,
-    deleter_id      INT4        NULL,
+    deleter_id      VARCHAR(15) NULL,
     rec_status      VARCHAR(1)  NULL DEFAULT 'N'::VARCHAR
 )
 WITH (

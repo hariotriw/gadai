@@ -19,11 +19,11 @@ CREATE TABLE ms_product(
     penalty_bill_numeric numeric(3,0) NOT NULL,
 
     created_date TIMESTAMP NULL,
-    creator_id INT4 NOT NULL,
+    creator_id VARCHAR NOT NULL,
     updated_date TIMESTAMP NULL,
-    updater_id INT4 NULL,
+    updater_id VARCHAR(15) NULL,
     deleted_date TIMESTAMP NULL,
-    deleter_id INT4 NULL,
+    deleter_id VARCHAR(15) NULL,
     rec_status VARCHAR(1) NULL DEFAULT 'N'::VARCHAR
 )
 WITH (
