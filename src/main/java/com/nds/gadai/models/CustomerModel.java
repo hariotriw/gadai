@@ -8,6 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
 public class CustomerModel extends RecordModel {
+    @NotEmpty(message = "Customer id is required")
     private String id;
 
     @NotEmpty(message = "Customer name is required")

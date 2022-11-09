@@ -1,10 +1,13 @@
 package com.nds.gadai.validators;
 
+import java.math.BigDecimal;
+
 import com.nds.gadai.exceptions.ClientException;
 import com.nds.gadai.globals.GlobalConstant;
 import com.nds.gadai.models.ProductModel;
 
 public class ProductValidator {
+
     public void nullCheckId(String id) throws ClientException {
         if (id == null) {
             throw new ClientException("Product id is required");
@@ -17,9 +20,35 @@ public class ProductValidator {
         }
     }
 
+    public void nullCheckLtv(BigDecimal ltv) throws ClientException {
+        if (ltv == null) {
+            throw new ClientException("ltv is required");
+        }
+    }
+
+    public void nullCheckSavingServicePercent(BigDecimal savingService) throws ClientException {
+        if (savingService == null) {
+            throw new ClientException("ltv is required");
+        }
+    }
+
     public void nullCheckObject(Object o) throws ClientException {
         if (o == null) {
             throw new ClientException("Product not found");
+        }
+    }
+
+    public void validateAdminOpeningCost(ProductModel productModel) throws ClientException {
+        if ((productModel.getAdminOpeningType() == "0") && ((productModel.getAdminOpeningCost().doubleValue() > 100) ||
+            (productModel.getAdminOpeningCost().doubleValue() < 0))){
+            throw new ClientException("If admin payment type is percent, value must between 0 - 100");
+        }
+    }
+
+    public void validateAdminClosingCost(ProductModel productModel) throws ClientException {
+        if ((productModel.getAdminClosingType() == "0") && ((productModel.getAdminClosingCost().doubleValue() > 100) ||
+            (productModel.getAdminClosingCost().doubleValue() < 0))){
+            throw new ClientException("If admin payment type is percent, value must between 0 - 100");
         }
     }
 

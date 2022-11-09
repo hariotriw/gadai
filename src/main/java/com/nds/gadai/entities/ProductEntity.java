@@ -62,13 +62,13 @@ public class ProductEntity {
     private Timestamp deletedDate;
 
     @Column(name = "creator_id")
-    private Integer creatorId;
+    private String creatorId;
 
     @Column(name = "updater_id")
-    private Integer updaterId;
+    private String updaterId;
 
     @Column(name = "deleter_id")
-    private Integer deleterId;
+    private String deleterId;
 
     @Column(name = "rec_status")
     private String recStatus;
@@ -97,27 +97,27 @@ public class ProductEntity {
         this.deletedDate = deletedDate;
     }
 
-    public Integer getCreatorId() {
+    public String getCreatorId() {
         return creatorId;
     }
 
-    public void setCreatorId(Integer creatorId) {
+    public void setCreatorId(String creatorId) {
         this.creatorId = creatorId;
     }
 
-    public Integer getUpdaterId() {
+    public String getUpdaterId() {
         return updaterId;
     }
 
-    public void setUpdaterId(Integer updaterId) {
+    public void setUpdaterId(String updaterId) {
         this.updaterId = updaterId;
     }
 
-    public Integer getDeleterId() {
+    public String getDeleterId() {
         return deleterId;
     }
 
-    public void setDeleterId(Integer deleterId) {
+    public void setDeleterId(String deleterId) {
         this.deleterId = deleterId;
     }
 
