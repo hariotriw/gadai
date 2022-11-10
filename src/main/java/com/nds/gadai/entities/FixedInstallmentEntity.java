@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -30,24 +32,24 @@ public class FixedInstallmentEntity {
     @OneToMany(targetEntity = PawnedGoodsEntity.class, mappedBy = "transactionNumber")
     private List<PawnedGoodsEntity> pawnedGoods;
 
-    @Column(name = "customer_id")
-    private String customerId;
-
-    @Column(name = "customer_name")
-    private String customerName;
+    @ManyToOne
+    @JoinColumns({
+        @JoinColumn(name = "customer_id", referencedColumnName = "id"),
+        @JoinColumn(name = "customer_name", referencedColumnName = "name"),
+        @JoinColumn(name = "customer_id_number", referencedColumnName = "id_number")
+    })
+    private CustomerEntity customer;
 
     @Column(name = "transfer_date")
     private Timestamp transferDate;
 
-    // belum ada relasinya
-    @Column(name = "product_id")
-    private Integer productId;
-
-    @Column(name = "product_name")
-    private String productName;
-
-    @Column(name = "product_desc")
-    private String productDesc;
+    @ManyToOne
+    @JoinColumns({
+        @JoinColumn(name = "product_id", referencedColumnName = "id"),
+        @JoinColumn(name = "product_name", referencedColumnName = "name"),
+        @JoinColumn(name = "product_desc", referencedColumnName = "description")
+    })
+    private ProductEntity product;
 
     @Column(name = "created_date")
     private Timestamp createdDate;
@@ -78,20 +80,28 @@ public class FixedInstallmentEntity {
         this.transactionNumber = transactionNumber;
     }
 
-    public String getCustomerId() {
-        return customerId;
+    public List<InstallmentEntity> getInstallments() {
+        return installments;
     }
 
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
+    public void setInstallments(List<InstallmentEntity> installments) {
+        this.installments = installments;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public List<PawnedGoodsEntity> getPawnedGoods() {
+        return pawnedGoods;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setPawnedGoods(List<PawnedGoodsEntity> pawnedGoods) {
+        this.pawnedGoods = pawnedGoods;
+    }
+
+    public CustomerEntity getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(CustomerEntity customer) {
+        this.customer = customer;
     }
 
     public Timestamp getTransferDate() {
@@ -102,28 +112,12 @@ public class FixedInstallmentEntity {
         this.transferDate = transferDate;
     }
 
-    public Integer getProductId() {
-        return productId;
+    public ProductEntity getProduct() {
+        return product;
     }
 
-    public void setProductId(Integer productId) {
-        this.productId = productId;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public String getProductDesc() {
-        return productDesc;
-    }
-
-    public void setProductDesc(String productDesc) {
-        this.productDesc = productDesc;
+    public void setProduct(ProductEntity product) {
+        this.product = product;
     }
 
     public Timestamp getCreatedDate() {

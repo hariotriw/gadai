@@ -1,6 +1,7 @@
 package com.nds.gadai.entities;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 @Table(name = "ms_product")
@@ -16,6 +18,9 @@ public class ProductEntity {
     @Id
     @Pattern(regexp = "^(PRD)\\d{3}", message = "Product Id starts with PRD and contains six character")
     private String id;
+
+    @OneToMany(targetEntity = FixedInstallmentEntity.class, mappedBy = "productId")
+    private List<FixedInstallmentEntity> fixedInstallments;
 
     @Column(name = "type")
     @NotEmpty(message = "Product type is required")

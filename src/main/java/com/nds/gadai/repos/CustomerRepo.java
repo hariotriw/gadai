@@ -1,7 +1,9 @@
 package com.nds.gadai.repos;
 
+import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nds.gadai.entities.CustomerEntity;
 import com.nds.gadai.globals.GlobalConstant;
+import com.nds.gadai.repos.interfaces.CustomerInfo;
 
 @Repository
 public interface CustomerRepo extends JpaRepository<CustomerEntity, Integer>, JpaSpecificationExecutor<CustomerEntity> {
@@ -33,4 +36,6 @@ public interface CustomerRepo extends JpaRepository<CustomerEntity, Integer>, Jp
                     + GlobalConstant.REC_STATUS_ACTIVE
                     + "'AND LOWER(id_number) = LOWER(:id_number)",nativeQuery = true)
         long countByIdNumber(@Param("id_number") String id);
+
+    List<CustomerInfo> findAllCustomerInfo(Specification<CustomerEntity> specification);
 }

@@ -1,11 +1,13 @@
 package com.nds.gadai.entities;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -22,6 +24,9 @@ public class CustomerEntity {
     @GeneratedValue(generator = "customer_id_seq")
     @Column(name = "id")
     private String id;
+
+    @OneToMany(targetEntity = FixedInstallmentEntity.class, mappedBy = "customerId")
+    private List<FixedInstallmentEntity> fixedInstallments;
 
     @Column(name = "name")
     @NotEmpty(message = "Customer name is required")

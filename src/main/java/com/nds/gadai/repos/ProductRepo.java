@@ -1,5 +1,6 @@
 package com.nds.gadai.repos;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nds.gadai.entities.ProductEntity;
 import com.nds.gadai.globals.GlobalConstant;
+import com.nds.gadai.repos.interfaces.ProductInfo;
 
 @Repository
 public interface ProductRepo extends JpaRepository<ProductEntity, Integer>, JpaSpecificationExecutor<ProductEntity> {
@@ -23,4 +25,6 @@ public interface ProductRepo extends JpaRepository<ProductEntity, Integer>, JpaS
                     + GlobalConstant.REC_STATUS_ACTIVE
                     + "'AND LOWER(id) = LOWER(:id)",nativeQuery = true)
         long countById(@Param("id") String id);
+
+    List<ProductInfo> findAllProductInfo();
 }
