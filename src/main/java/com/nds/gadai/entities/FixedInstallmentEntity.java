@@ -57,21 +57,6 @@ public class FixedInstallmentEntity {
     @Column(name = "creator_id")
     private String creatorId;
 
-    @Column(name = "updated_date")
-    private Timestamp updatedDate;
-
-    @Column(name = "updater_id")
-    private String updaterId;
-
-    @Column(name = "deleted_date")
-    private Timestamp deletedDate;
-
-    @Column(name = "deleter_id")
-    private String deleterId;
-    
-    @Column(name = "rec_status")
-    private String recStatus;
-
     public String getTransactionNumber() {
         return transactionNumber;
     }
@@ -134,45 +119,5 @@ public class FixedInstallmentEntity {
 
     public void setCreatorId(String creatorId) {
         this.creatorId = creatorId;
-    }
-
-    public Timestamp getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public void setUpdatedDate(Timestamp updatedDate) {
-        this.updatedDate = updatedDate;
-    }
-
-    public String getUpdaterId() {
-        return updaterId;
-    }
-
-    public void setUpdaterId(String updaterId) {
-        this.updaterId = updaterId;
-    }
-
-    public Timestamp getDeletedDate() {
-        return deletedDate;
-    }
-
-    public void setDeletedDate(Timestamp deletedDate) {
-        this.deletedDate = deletedDate;
-    }
-
-    public String getDeleterId() {
-        return deleterId;
-    }
-
-    public void setDeleterId(String deleterId) {
-        this.deleterId = deleterId;
-    }
-
-    public String getRecStatus() {
-        return recStatus;
-    }
-
-    public void setRecStatus(String recStatus) {
-        this.recStatus = recStatus;
     }
 }
