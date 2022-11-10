@@ -40,9 +40,6 @@ public class FixedInstallmentEntity {
     })
     private CustomerEntity customer;
 
-    @Column(name = "transfer_date")
-    private Timestamp transferDate;
-
     @ManyToOne
     @JoinColumns({
         @JoinColumn(name = "product_id", referencedColumnName = "id"),
@@ -51,8 +48,8 @@ public class FixedInstallmentEntity {
     })
     private ProductEntity product;
 
-    @Column(name = "created_date")
-    private Timestamp createdDate;
+    @Column(name = "transfer_date")
+    private Timestamp transferDate;
 
     @Column(name = "creator_id")
     private String creatorId;
@@ -103,14 +100,6 @@ public class FixedInstallmentEntity {
 
     public void setProduct(ProductEntity product) {
         this.product = product;
-    }
-
-    public Timestamp getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Timestamp createdDate) {
-        this.createdDate = createdDate;
     }
 
     public String getCreatorId() {

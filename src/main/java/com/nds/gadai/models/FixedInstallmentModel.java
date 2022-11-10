@@ -9,17 +9,10 @@ public class FixedInstallmentModel extends RecordModel{
     private String customerName;
 
     private String customerIdNumber;
-
-    public String getCustomerIdNumber() {
-        return customerIdNumber;
-    }
-    public void setCustomerIdNumber(String customerIdNumber) {
-        this.customerIdNumber = customerIdNumber;
-    }
-    @Pattern(regexp = "(\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01]))", message = "Trx date format must be YYMMDD")
+    @Pattern(regexp = "((19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))", message = "Trx date format must be yyyy-MM-dd")
     private String trxDateBefore;
 
-    @Pattern(regexp = "(\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01]))", message = "Trx date format must be YYMMDD")
+    @Pattern(regexp = "((19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))", message = "Trx date format must be yyyy-MM-dd")
     private String trxDateAfter;
 
     private String productId;
@@ -44,7 +37,12 @@ public class FixedInstallmentModel extends RecordModel{
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
-    
+    public String getCustomerIdNumber() {
+        return customerIdNumber;
+    }
+    public void setCustomerIdNumber(String customerIdNumber) {
+        this.customerIdNumber = customerIdNumber;
+    }
     public String getTrxDateBefore() {
         return trxDateBefore;
     }
