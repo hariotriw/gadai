@@ -25,7 +25,7 @@ public class CustomerEntity {
     @Column(name = "id")
     private String id;
 
-    @OneToMany(targetEntity = FixedInstallmentEntity.class, mappedBy = "customerId")
+    @OneToMany(targetEntity = FixedInstallmentEntity.class, mappedBy = "customer")
     private List<FixedInstallmentEntity> fixedInstallments;
 
     @Column(name = "name")

@@ -19,7 +19,7 @@ public class ProductEntity {
     @Pattern(regexp = "^(PRD)\\d{3}", message = "Product Id starts with PRD and contains six character")
     private String id;
 
-    @OneToMany(targetEntity = FixedInstallmentEntity.class, mappedBy = "productId")
+    @OneToMany(targetEntity = FixedInstallmentEntity.class, mappedBy = "product")
     private List<FixedInstallmentEntity> fixedInstallments;
 
     @Column(name = "type")
