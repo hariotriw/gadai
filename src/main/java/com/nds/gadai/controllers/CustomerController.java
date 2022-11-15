@@ -33,7 +33,7 @@ public class CustomerController {
 
             // Response
             ResponseModel response = new ResponseModel();
-            response.setMsg("New customer is successfully added");
+            // response.setMsg("New customer is successfully added");
             response.setData(customer);
 
             return ResponseEntity.ok(response);
@@ -41,7 +41,7 @@ public class CustomerController {
             
         catch (Exception e) {
             ResponseModel response = new ResponseModel();
-            response.setMsg("Sorry, there is a failure on our server" + e.getMessage());
+            // response.setMsg("Sorry, there is a failure on our server" + e.getMessage());
             e.printStackTrace();
             return ResponseEntity.internalServerError().body(response);
         }
@@ -55,14 +55,14 @@ public class CustomerController {
 
             // Response
             ResponseModel response = new ResponseModel();
-            response.setMsg("Request succesful");
+            // response.setMsg("Request succesful");
             response.setData(customers);
 
             return ResponseEntity.ok(response);
         }
         catch (Exception e) {
                 ResponseModel response = new ResponseModel();
-                response.setMsg("Sorry, there is a failure on our server");
+                // response.setMsg("Sorry, there is a failure on our server");
                 e.printStackTrace();
                 return ResponseEntity.internalServerError().body(response);
         }
@@ -76,14 +76,14 @@ public class CustomerController {
 
             // Response
             ResponseModel response = new ResponseModel();
-            response.setMsg("Request succesful");
+            // response.setMsg("Request succesful");
             response.setData(customer);
 
             return ResponseEntity.ok(response);
         }
         catch (Exception e) {
                 ResponseModel response = new ResponseModel();
-                response.setMsg("Sorry, there is a failure on our server");
+                // response.setMsg("Sorry, there is a failure on our server");
                 e.printStackTrace();
                 return ResponseEntity.internalServerError().body(response);
         }
@@ -97,14 +97,14 @@ public class CustomerController {
 
             // Response
             ResponseModel response = new ResponseModel();
-            response.setMsg("Request succesful");
+            // response.setMsg("Request succesful");
             response.setData(customer);
 
             return ResponseEntity.ok(response);
         }
         catch (Exception e) {
                 ResponseModel response = new ResponseModel();
-                response.setMsg("Sorry, there is a failure on our server");
+                // response.setMsg("Sorry, there is a failure on our server");
                 e.printStackTrace();
                 return ResponseEntity.internalServerError().body(response);
         }
@@ -118,14 +118,14 @@ public class CustomerController {
 
             // Response
             ResponseModel response = new ResponseModel();
-            response.setMsg("Request succesful");
+            // response.setMsg("Request succesful");
             response.setData(customer);
 
             return ResponseEntity.ok(response);
         }
         catch (Exception e) {
                 ResponseModel response = new ResponseModel();
-                response.setMsg("Sorry, there is a failure on our server");
+                // response.setMsg("Sorry, there is a failure on our server");
                 e.printStackTrace();
                 return ResponseEntity.internalServerError().body(response);
         }

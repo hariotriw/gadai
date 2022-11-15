@@ -34,7 +34,7 @@ public class PaymentEntity {
     @Column(name = "total_installment_cost")
     private BigDecimal totalInstallmentCost;
 
-    @Column(name = "total_installment_type")
+    @Column(name = "total_installment_penalty")
     private BigDecimal totalInstallmentPenalty;
 
     @Column(name = "admin_closing_cost")

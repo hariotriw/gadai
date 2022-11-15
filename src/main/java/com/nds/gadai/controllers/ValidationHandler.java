@@ -36,7 +36,7 @@ public class ValidationHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({ClientException.class})
     public ResponseEntity<Object> handleClientException(ClientException ex, WebRequest request) {
         ResponseModel response = new ResponseModel();
-        response.setMsg(ex.getMessage());
+        response.setMessage(ex.getMessage());
         response.setData(ex.getMessage());
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
@@ -45,7 +45,7 @@ public class ValidationHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({NotFoundException.class})
     public ResponseEntity<Object> handleClientException(NotFoundException ex, WebRequest request) {
         ResponseModel response = new ResponseModel();
-        response.setMsg(ex.getMessage());
+        response.setMessage(ex.getMessage());
         response.setData(ex.getMessage());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);

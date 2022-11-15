@@ -2,7 +2,7 @@ package com.nds.gadai.models;
 
 import java.security.Timestamp;
 
-public class FixedIInstallmentModel extends RecordModel{
+public class FixedInstallmentModel extends RecordModel{
     private String transactionNumber;
     private String customerId;
     private String customerName;

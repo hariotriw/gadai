@@ -26,7 +26,7 @@ public class FixedInstallmentEntiy {
     private String transactionNumber;
 
     @OneToMany(targetEntity = InstallmentEntity.class, mappedBy = "transactionNumber")
-    private List<InstallmentEntity> installments = new ArrayList<>();;
+    private List<InstallmentEntity> installments = new ArrayList<>();
 
     @OneToMany(targetEntity = PawnedGoodsEntity.class, mappedBy = "transactionNumber")
     private List<PawnedGoodsEntity> pawnedGoods = new ArrayList<>();

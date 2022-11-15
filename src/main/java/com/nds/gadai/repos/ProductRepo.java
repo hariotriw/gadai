@@ -26,6 +26,6 @@ public interface ProductRepo extends JpaRepository<ProductEntity, Integer>, JpaS
         
     @Query(value = "SELECT * FROM ms_product WHERE rec_status = '"
         + GlobalConstant.REC_STATUS_ACTIVE
-        + "'AND id) = :productId",nativeQuery = true)
+        + "'AND id = :productId",nativeQuery = true)
     ProductEntity findByProductId(@Param("productId") Integer productId); 
 }
