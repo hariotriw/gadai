@@ -1,5 +1,6 @@
 package com.nds.gadai.models;
 
+import java.math.BigDecimal;
 import java.security.Timestamp;
 
 public class FixedInstallmentModel extends RecordModel{
@@ -10,6 +11,7 @@ public class FixedInstallmentModel extends RecordModel{
     private Integer productId;
     private String productName;
     private String productDesc;  
+    private BigDecimal customerLoan;
     
     public String getTransactionNumber() {
         return transactionNumber;
@@ -52,6 +54,13 @@ public class FixedInstallmentModel extends RecordModel{
     }
     public void setProductDesc(String productDesc) {
         this.productDesc = productDesc;
+    }
+    
+    public BigDecimal getCustomerLoan() {
+        return customerLoan;
+    }
+    public void setCustomerLoan(BigDecimal customerLoan) {
+        this.customerLoan = customerLoan;
     }
     
 }

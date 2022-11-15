@@ -2,35 +2,27 @@ package com.nds.gadai.entities;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "tx_fixed_installment")
-public class FixedInstallmentEntiy {
+public class CustomerTransactionInfoEntity {
     
-    @Id
+
+    // ----- Fixed Installment -----
     @GenericGenerator(name = "transaction_number_seq", strategy = "com.nds.gadai.generators.TransactionNumberGenerator")
     @GeneratedValue(generator = "transaction_number_seq")
-    @JoinColumn(name = "transaction_number", referencedColumnName = "transaction_number")
     @Column(name = "transaction_number")
     private String transactionNumber;
-
-    @OneToMany(targetEntity = InstallmentEntity.class, mappedBy = "transactionNumber")
-    private List<InstallmentEntity> installments = new ArrayList<>();
-
-    @OneToMany(targetEntity = PawnedGoodsEntity.class, mappedBy = "transactionNumber")
-    private List<PawnedGoodsEntity> pawnedGoods = new ArrayList<>();
 
     @Column(name = "customer_id")
     private String customerId;
@@ -41,13 +33,10 @@ public class FixedInstallmentEntiy {
     @Column(name = "transfer_date")
     private Timestamp transferDate;
 
-    @Column(name = "customer_loan")
-    private BigDecimal customerLoan;
-    
     // belum ada relasinya
     @Column(name = "product_id")
     private Integer productId;
-    
+
     @Column(name = "product_name")
     private String productName;
 
@@ -74,6 +63,55 @@ public class FixedInstallmentEntiy {
     
     @Column(name = "rec_status")
     private String recStatus;
+
+    // ----- Installment -----
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
+
+    @Column(name = "installment_to")
+    private Integer installmentTo;
+
+    @Column(name = "base_installment")
+    private BigDecimal baseInstallment;
+
+    @Column(name = "saving_service_cost")
+    private BigDecimal savingServiceCost;
+
+    @Column(name = "late_penalty")
+    private BigDecimal latePenalty;
+
+    @Column(name = "total_installment")
+    private BigDecimal totalInstallment;
+
+    @Column(name = "installment_status")
+    private String installmentStatus;
+
+    @Column(name = "active_installment_date")
+    private Timestamp activeInstallmentDate;
+
+    @Column(name = "paid_date")
+    private Timestamp paidDate;
+
+    // ----- Customer -----
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "id_number")
+    private String idNumber;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Column(name = "gender")
+    private String gender;
+
+    @Column(name = "business_type")
+    private String businessType;
+
+    @Column(name = "max_limit")
+    private Double maxLimit;
 
     public String getTransactionNumber() {
         return transactionNumber;
@@ -187,11 +225,124 @@ public class FixedInstallmentEntiy {
         this.recStatus = recStatus;
     }
 
-    public BigDecimal getCustomerLoan() {
-        return customerLoan;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCustomerLoan(BigDecimal customerLoan) {
-        this.customerLoan = customerLoan;
+    public void setId(Integer id) {
+        this.id = id;
     }
+
+    public Integer getInstallmentTo() {
+        return installmentTo;
+    }
+
+    public void setInstallmentTo(Integer installmentTo) {
+        this.installmentTo = installmentTo;
+    }
+
+    public BigDecimal getBaseInstallment() {
+        return baseInstallment;
+    }
+
+    public void setBaseInstallment(BigDecimal baseInstallment) {
+        this.baseInstallment = baseInstallment;
+    }
+
+    public BigDecimal getSavingServiceCost() {
+        return savingServiceCost;
+    }
+
+    public void setSavingServiceCost(BigDecimal savingServiceCost) {
+        this.savingServiceCost = savingServiceCost;
+    }
+
+    public BigDecimal getLatePenalty() {
+        return latePenalty;
+    }
+
+    public void setLatePenalty(BigDecimal latePenalty) {
+        this.latePenalty = latePenalty;
+    }
+
+    public BigDecimal getTotalInstallment() {
+        return totalInstallment;
+    }
+
+    public void setTotalInstallment(BigDecimal totalInstallment) {
+        this.totalInstallment = totalInstallment;
+    }
+
+    public String getInstallmentStatus() {
+        return installmentStatus;
+    }
+
+    public void setInstallmentStatus(String installmentStatus) {
+        this.installmentStatus = installmentStatus;
+    }
+
+    public Timestamp getActiveInstallmentDate() {
+        return activeInstallmentDate;
+    }
+
+    public void setActiveInstallmentDate(Timestamp activeInstallmentDate) {
+        this.activeInstallmentDate = activeInstallmentDate;
+    }
+
+    public Timestamp getPaidDate() {
+        return paidDate;
+    }
+
+    public void setPaidDate(Timestamp paidDate) {
+        this.paidDate = paidDate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(String idNumber) {
+        this.idNumber = idNumber;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getBusinessType() {
+        return businessType;
+    }
+
+    public void setBusinessType(String businessType) {
+        this.businessType = businessType;
+    }
+
+    public Double getMaxLimit() {
+        return maxLimit;
+    }
+
+    public void setMaxLimit(Double maxLimit) {
+        this.maxLimit = maxLimit;
+    }
+    
 }

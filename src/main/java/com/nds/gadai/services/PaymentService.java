@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nds.gadai.entities.CustomerEntity;
+import com.nds.gadai.entities.CustomerTransactionInfoEntity;
 import com.nds.gadai.entities.FixedInstallmentEntiy;
 import com.nds.gadai.entities.InstallmentEntity;
 import com.nds.gadai.entities.PawnedGoodsEntity;
@@ -26,6 +27,7 @@ import com.nds.gadai.globals.GlobalConstant;
 import com.nds.gadai.models.FixedInstallmentModel;
 import com.nds.gadai.models.PawnedGoods;
 import com.nds.gadai.repos.CustomerRepo;
+import com.nds.gadai.repos.CustomerTransactionRepo;
 import com.nds.gadai.repos.FixedInstallmentRepo;
 import com.nds.gadai.repos.InstallmentRepo;
 import com.nds.gadai.repos.PawnedGoodsRepo;
@@ -58,6 +60,9 @@ public class PaymentService implements Serializable{
     @Autowired
     private PaymentRepo paymentRepo;
 
+    @Autowired
+    private CustomerTransactionRepo customerTransactionRepo;
+
     UserValidator userValidator = new UserValidator();
 
     // doSearchUser
@@ -73,7 +78,7 @@ public class PaymentService implements Serializable{
     }
 
     public HashMap<String, Object> doGetDetailTransaction(String transactionNumber, String actorId) throws NotFoundException, ClientException {
-        // authentikasi actor id
+        // ========== AUTHENTIKASI actor id ==========
         userValidator.nullCheckActorId(actorId);
         Integer authCount = userRepo.countById(actorId);
         System.out.println(authCount);
@@ -81,42 +86,88 @@ public class PaymentService implements Serializable{
             throw new NotFoundException("Actor id is not found");
         }
 
-        // validation
-
-        // comment output
-        // part 1 informasi transaksi   ==> pelanggan (id - nama) | tgl transaksi | no transaksi | produk transaksi (tipe produk) | nama produk | keterangan produk 
-        // part 2 daftar barang gadai   ==> no | nama barang | kondisi | jumlah | harga per satuan | jumlah
-        // part 3 data kontrak          ==> *ada banyak
-        // part 4 tagihan dan pembayaran==> kolom cicilan
+        // ========== VALIDATION ==========
 
 
-        // process
+        // ========== PROCESS ========== 
+        // -----inisialisasi object
+        HashMap<String, Object> obj1 = new HashMap<String, Object>();
+        HashMap<String, Object> obj2 = new HashMap<String, Object>();
+        HashMap<String, Object> obj3 = new HashMap<String, Object>();
+        HashMap<String, Object> obj4 = new HashMap<String, Object>();
+        
+        // ----- services & repos -----
         FixedInstallmentEntiy fixedInstallmentData = fixedInstallmentRepo.getFixedInstallmentByTransactionNumber(transactionNumber);
         String userId = fixedInstallmentData.getCustomerId();
         System.out.println(userId);
         Integer productId = fixedInstallmentData.getProductId();
         List<InstallmentEntity> installmentsData = installmentRepo.getInstallmentsByTransactionNumber(transactionNumber);
         List<PawnedGoodsEntity> pawnedGoodsData = pawnedGoodsrepo.getPawnedGoodsByTransactionNumber(transactionNumber);
-        System.out.println("test 1");
-        System.out.println("test 2");
-        PaymentEntity paymentData = paymentRepo.findByTransactionNumber(transactionNumber); 
         ProductEntity productData = productRepo.findByProductId(productId);
 
-        // CustomerEntity customerData = customerRepo.findByUserId(userId.toString());
+        // ----- processing data -----
+        BigDecimal nilaiTaksiran = new BigDecimal( 0);
+        for (PawnedGoodsEntity goods : pawnedGoodsData) {
+            BigDecimal temp = new BigDecimal( 0);
+            temp = goods.getPricePerUnit().multiply(new BigDecimal(goods.getAmount()));
+            nilaiTaksiran = nilaiTaksiran.add(temp);
+        }
+        BigDecimal biayaAdminBuka = new BigDecimal(0);
+        if(productData.getAdminOpeningType().equalsIgnoreCase("PERCENT")) {
+            biayaAdminBuka = fixedInstallmentData.getCustomerLoan().multiply(new BigDecimal(productData.getAdminOpeningCost())).divide(new BigDecimal(100));
+        }
+        if(productData.getAdminOpeningType().equalsIgnoreCase("NOMINAL")) {
+            biayaAdminBuka = fixedInstallmentData.getCustomerLoan().subtract(new BigDecimal(productData.getAdminOpeningCost()));
+        }
+        BigDecimal biayaAdminTutup = new BigDecimal(0);
+        if(productData.getAdminClosingType().equalsIgnoreCase("PERCENT")) {
+            biayaAdminTutup = fixedInstallmentData.getCustomerLoan().multiply(new BigDecimal(productData.getAdminClosingCost())).divide(new BigDecimal(100));
+        }
+        if(productData.getAdminClosingType().equalsIgnoreCase("NOMINAL")) {
+            biayaAdminTutup = fixedInstallmentData.getCustomerLoan().subtract(new BigDecimal(productData.getAdminClosingCost()));
+        }
+        BigDecimal totalNilaiPinjaman = fixedInstallmentData.getCustomerLoan().add(biayaAdminBuka);
         
-        // return object
+
+        // --- insert into obj1 ---
+        obj1.put("pelanggan", fixedInstallmentData.getCustomerId().concat("-").concat(fixedInstallmentData.getCustomerName()));
+        obj1.put("tanggalTransaksi", fixedInstallmentData.getTransferDate());
+        obj1.put("noTransaksi", fixedInstallmentData.getTransactionNumber());
+        obj1.put("produkTransaksi", fixedInstallmentData.getProductId());
+        obj1.put("namaProduk", fixedInstallmentData.getProductName());
+        obj1.put("descProduk", fixedInstallmentData.getProductDesc());
+
+        // --- insert into obj2 ---
+        obj2.put("daftarBarangGadai", pawnedGoodsData);
+
+        // --- insert into obj3 ---
+        obj3.put("totalNilaiTaksiran", nilaiTaksiran);
+        obj3.put("ltv", productData.getLtv());
+        obj3.put("maksNilaiPeminjaman", nilaiTaksiran.multiply(new BigDecimal(productData.getLtv())).divide(new BigDecimal(100)));
+        obj3.put("biayaAdminBuka", biayaAdminBuka);
+        obj3.put("nilaiPinjamanPelanggan", fixedInstallmentData.getCustomerLoan());
+        obj3.put("totalNilaiPinjaman", totalNilaiPinjaman);
+        obj3.put("tanggalTransaksi", fixedInstallmentData.getTransferDate());
+        obj3.put("biayaAdminTUtup", biayaAdminTutup);
+        obj3.put("totalPengembalian", totalNilaiPinjaman.add(biayaAdminTutup));
+        // obj3.put("totalPengembalian", totalNilaiPinjaman.add(biayaAdminTutup).add(totalBiayaPenyimpanan));
+
+        // --- insert into obj4 ---
+        obj4.put("dataTagihan", installmentsData);
+
+        System.out.println("test 1");
+        System.out.println("test 2");
 
         HashMap<String, Object> result = new HashMap<String, Object>();
-        result.put("installments", installmentsData);
-        result.put("pawnedGoods", pawnedGoodsData);
-        result.put("fixedInstallment", fixedInstallmentData);
-        result.put("payment", paymentData);
-        result.put("product", productData);
-        // return fixedInstallmentData;
+        result.put("informasiTransaksi", obj1);
+        result.put("daftarBarangGadai", obj2);
+        result.put("dataKontrak", obj3);
+        result.put("dataTagihan", obj4);
+        
         return result;
     }
 
-    public List<FixedInstallmentEntiy> doSearchPayFixedInstallment(
+    public HashMap<String, Object> doSearchPayFixedInstallment(
         String transactionNumber,
         String customerId, 
         String customerName,
@@ -126,12 +177,12 @@ public class PaymentService implements Serializable{
     ) throws NotFoundException, ClientException {
 
         // Testing Sysout the data
-        System.out.println(transactionNumber);
-        System.out.println(customerId);
-        System.out.println(customerName);
-        System.out.println(installmentStartDate);
-        System.out.println(installmentEndDate);
-        System.out.println(actorId);
+        // System.out.println(transactionNumber);
+        // System.out.println(customerId);
+        // System.out.println(customerName);
+        // System.out.println(installmentStartDate);
+        // System.out.println(installmentEndDate);
+        // System.out.println(actorId);
         
         // authentikasi actor id
         userValidator.nullCheckActorId(actorId);
@@ -143,26 +194,16 @@ public class PaymentService implements Serializable{
         // validation
 
 
-        // process repo
-        // List<FixedInstallmentEntiy> results = new ArrayList<>(); 
-
-        // pake specs
-        // SearchTransactionSpec specs = new SearchTransactionSpec(transactionNumber, customerId, customerName, installmentStartDate, installmentEndDate);
-        // fixedInstallmentRepo.findAll(specs).forEach(results::add);
-
         // pake fungsi repo
-        List<FixedInstallmentEntiy> results = fixedInstallmentRepo.findAllSearchTransaction(transactionNumber, customerId, customerName, installmentStartDate, installmentEndDate);
-        // List<FixedInstallmentEntiy> results = fixedInstallmentRepo.findAllSearchTransaction(transactionNumber);
+        System.out.println("test 8");
+        List<CustomerTransactionInfoEntity> users = customerTransactionRepo.findAllSearchTransaction(transactionNumber, customerId, customerName, installmentStartDate, installmentEndDate);
+        System.out.println("test 9");
+        HashMap<String, Object> results = new HashMap<>();
+        results.put("users", users);
 
         // --- Belum selesai ---
         return results;
 
-        // process service
-        // HashMap<String, Object> result = new HashMap<String, Object>();
-        // result.put("transactionNumber", 1);
-
-
-        // return result;
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = { Exception.class})

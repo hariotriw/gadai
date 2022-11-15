@@ -134,7 +134,7 @@ public class PaymentController {
             // request
             System.out.println("test 1");
             // Object result = 
-            List<FixedInstallmentEntiy> result = paymentService.doSearchPayFixedInstallment(transactionNumber, customerId, customerName, installmentStartDate, installmentEndDate, actorId);
+            HashMap<String, Object> result = paymentService.doSearchPayFixedInstallment(transactionNumber, customerId, customerName, installmentStartDate, installmentEndDate, actorId);
 
             // response
             ResponseModel response = new ResponseModel();
@@ -208,115 +208,6 @@ public class PaymentController {
 
             return ResponseEntity.badRequest().body(response);
             
-        } catch (Exception e) {
-            ResponseModel response = new ResponseModel();
-            response.setCode(500);
-            response.setMessage("Internal Server Error");
-            response.setDescription("Sorry, there is a failure on our server.");
-            response.setTime(new Timestamp(System.currentTimeMillis()));
-            response.setData(null);
-            // response.setMsg("Sorry, there is a failure on our server.");
-            e.printStackTrace();
-
-            return ResponseEntity.internalServerError().body(response);
-        }
-    }
-    
-    // --- Controller testing ---
-    @GetMapping(value = "/test1")
-    public ResponseEntity<ResponseModel> test1Controller() {
-        try {
-            // Online Java Compiler
-            // Use this editor to write, compile and run your Java code online
-
-            // public static void main(String[] args) {
-            //     // String input = "1010";
-            //     String input = "01011";
-            //     String str = "00000";
-            //     int counter = 0;
-            //     char[] charArrst = input.toCharArray();
-                
-            //     System.out.println("input yang dimasukkan: " + input);
-            //     while (!str.equals(input)) {
-            //         System.out.println("while looping : " + counter);
-            //         // System.out.println(input);
-            //         // int minus = 1;
-            //         charArrst = input.toCharArray();
-            //         int n = getN(charArrst);
-            //         input = doFlip(input, n);
-            //         System.out.println("n = " + n);
-            //         System.out.println(input);
-                    
-            //         counter++;
-            //     }
-                
-            //     // Output: "1010"
-            //     // System.out.println("output akhir: " + input);
-            //     System.out.println("counter: " + counter);
-            // }
-            
-            // public static Integer getN(char[] arr) {
-            //     int countN = 0;
-            //     for(int j = arr.length-1; j >= 0; j--) {
-            //         // System.out.println(arr[j]);
-            //         if(j == 0){
-            //             return j+1;
-            //         } else {
-            //             if(arr[j] == '0'){
-            //                 if(arr[j-1] == '1') {
-            //                     return j+1;
-            //                 } else {
-            //                   continue;
-            //                 } 
-            //             } else {
-            //                 continue;
-            //             }
-            //         }
-                        
-                    
-                    
-            //         // if(arr[j] == '0'){
-            //         //     if(j == 0) {
-            //         //         return j+1;
-            //         //     } else {
-            //         //         if(arr[j-1] == '1') {
-            //         //             return j+1;
-            //         //         } else {
-            //         //             continue;
-            //         //         }
-            //         //     }
-            //         // } else {
-            //         //     continue;
-            //         // }
-            //     }
-            //         return 0;
-            // }
-            
-            // public static String doFlip(String str, int n) {
-            //     int count = 0;
-            //     char[] charArr = str.toCharArray();
-            //     for(int i = n-1; i <= charArr.length-1; i++){
-            //         if(charArr[i] == '0'){
-            //             charArr[i] = '1';
-            //         } else if(charArr[i] == '1'){
-            //             charArr[i] = '0';
-            //         }
-            //     }
-            //     // str = 
-            //     // System.out.println(str);
-            //     return String.valueOf(charArr);
-            // }
-
-            // response
-            ResponseModel response = new ResponseModel();
-            response.setCode(200);
-            response.setMessage("OK");
-            response.setDescription("Request successfully");
-            response.setTime(new Timestamp(System.currentTimeMillis()));
-            response.setData(0);
-
-            return ResponseEntity.ok(response);
-
         } catch (Exception e) {
             ResponseModel response = new ResponseModel();
             response.setCode(500);
