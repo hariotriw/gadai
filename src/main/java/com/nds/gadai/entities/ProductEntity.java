@@ -1,5 +1,6 @@
 package com.nds.gadai.entities;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import javax.persistence.OneToMany;
 
 @Entity
 @Table(name = "ms_product")
-public class ProductEntity {
+public class ProductEntity implements Serializable {
     @Id
     @Pattern(regexp = "^(PRD)\\d{3}", message = "Product Id starts with PRD and contains six character")
     private String id;

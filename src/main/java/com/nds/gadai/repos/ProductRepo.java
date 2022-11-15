@@ -25,6 +25,7 @@ public interface ProductRepo extends JpaRepository<ProductEntity, Integer>, JpaS
                     + GlobalConstant.REC_STATUS_ACTIVE
                     + "'AND LOWER(id) = LOWER(:id)",nativeQuery = true)
         long countById(@Param("id") String id);
-
-    List<ProductInfo> findAllProductInfo();
+    @Query(value = "SELECT id, name, description FROM ms_product WHERE rec_status = '"
+                    + GlobalConstant.REC_STATUS_ACTIVE + "'", nativeQuery = true)
+        List<ProductInfo> findAllProductInfo();
 }

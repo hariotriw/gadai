@@ -41,7 +41,7 @@ public class ProductController {
             
         catch (Exception e) {
             ResponseModel response = new ResponseModel();
-            response.setMsg("Sorry, there is a failure on our server" + e.getMessage());
+            response.setMsg("Sorry, there is a failure on our server. " + e.getMessage() + e.getMessage());
             e.printStackTrace();
             return ResponseEntity.internalServerError().body(response);
         }
@@ -62,7 +62,7 @@ public class ProductController {
         }
         catch (Exception e) {
                 ResponseModel response = new ResponseModel();
-                response.setMsg("Sorry, there is a failure on our server");
+                response.setMsg("Sorry, there is a failure on our server. " + e.getMessage());
                 e.printStackTrace();
                 return ResponseEntity.internalServerError().body(response);
         }
@@ -83,7 +83,7 @@ public class ProductController {
         }
         catch (Exception e) {
                 ResponseModel response = new ResponseModel();
-                response.setMsg("Sorry, there is a failure on our server");
+                response.setMsg("Sorry, there is a failure on our server. " + e.getMessage());
                 e.printStackTrace();
                 return ResponseEntity.internalServerError().body(response);
         }
@@ -104,7 +104,7 @@ public class ProductController {
         }
         catch (Exception e) {
                 ResponseModel response = new ResponseModel();
-                response.setMsg("Sorry, there is a failure on our server");
+                response.setMsg("Sorry, there is a failure on our server. " + e.getMessage());
                 e.printStackTrace();
                 return ResponseEntity.internalServerError().body(response);
         }
@@ -125,7 +125,7 @@ public class ProductController {
         }
         catch (Exception e) {
                 ResponseModel response = new ResponseModel();
-                response.setMsg("Sorry, there is a failure on our server");
+                response.setMsg("Sorry, there is a failure on our server. " + e.getMessage());
                 e.printStackTrace();
                 return ResponseEntity.internalServerError().body(response);
         }

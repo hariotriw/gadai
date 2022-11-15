@@ -17,7 +17,7 @@ public class FixedInstallmentModel extends RecordModel{
 
     private String productId;
     private String productName;
-    private String productDesc;  
+    private String productDesc; 
     
     public String getTransactionNumber() {
         return transactionNumber;

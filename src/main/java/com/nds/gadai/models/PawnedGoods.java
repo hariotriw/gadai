@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 public class PawnedGoods extends RecordModel{
     private Integer id;
+
     private String transactionNumber;
     private String goodsName;
     private String description;

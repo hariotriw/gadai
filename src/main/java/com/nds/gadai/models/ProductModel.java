@@ -18,15 +18,15 @@ public class ProductModel extends RecordModel{
     private String description;
 
     @Min(value = 0, message = "Percentage must be between 0 to 100%")
-    @Max(value = 1, message = "Percentage must be between 0 to 100%")
+    @Max(value = 100, message = "Percentage must be between 0 to 100%")
     private BigDecimal ltv;
 
     @Min(value = 0, message = "Percentage must be between 0 to 100%")
-    @Max(value = 1, message = "Percentage must be between 0 to 100%")
+    @Max(value = 100, message = "Percentage must be between 0 to 100%")
     private BigDecimal ltvLow;
 
     @Min(value = 0, message = "Percentage must be between 0 to 100%")
-    @Max(value = 1, message = "Percentage must be between 0 to 100%")
+    @Max(value = 100, message = "Percentage must be between 0 to 100%")
     private BigDecimal ltvHigh;
 
     private Integer tenor;
@@ -41,18 +41,22 @@ public class ProductModel extends RecordModel{
 
     private BigDecimal adminClosingCost;
 
+    @Min(value = 0, message = "Percentage must be between 0 to 100%")
+    @Max(value = 100, message = "Percentage must be between 0 to 100%")
     private BigDecimal savingServicePercent;
 
     @Min(value = 0, message = "Percentage must be between 0 to 100%")
-    @Max(value = 1, message = "Percentage must be between 0 to 100%")
+    @Max(value = 100, message = "Percentage must be between 0 to 100%")
     private BigDecimal savingServicePercentLow;
 
     @Min(value = 0, message = "Percentage must be between 0 to 100%")
-    @Max(value = 1, message = "Percentage must be between 0 to 100%")
+    @Max(value = 100, message = "Percentage must be between 0 to 100%")
     private BigDecimal savingServicePercentHigh;
 
     private Integer savingServiceNumeric;
 
+    @Min(value = 0, message = "Percentage must be between 0 to 100%")
+    @Max(value = 100, message = "Percentage must be between 0 to 100%")
     private BigDecimal penaltyBillPercent;
     
     private Integer penaltyBillNumeric;

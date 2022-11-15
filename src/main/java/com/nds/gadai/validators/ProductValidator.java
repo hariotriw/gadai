@@ -32,6 +32,12 @@ public class ProductValidator {
         }
     }
 
+    public void validateId(String id) throws ClientException {
+        if (!id.matches("^(PRD)\\d{3}")) {
+            throw new ClientException("Product id contains 6 characters starting with PRD");
+        }
+    }
+
     public void validateAdminOpeningCost(ProductModel productModel) throws ClientException {
         if ((productModel.getAdminOpeningType() == "0") && ((productModel.getAdminOpeningCost().doubleValue() > 100) ||
             (productModel.getAdminOpeningCost().doubleValue() < 0))){

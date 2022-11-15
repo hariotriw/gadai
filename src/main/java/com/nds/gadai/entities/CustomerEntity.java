@@ -1,5 +1,6 @@
 package com.nds.gadai.entities;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "ms_customer")
 
-public class CustomerEntity {
+public class CustomerEntity implements Serializable {
     @Id
     @GenericGenerator(name = "customer_id_seq", strategy = "com.nds.gadai.generators.CustomerIdGenerator")
     @GeneratedValue(generator = "customer_id_seq")

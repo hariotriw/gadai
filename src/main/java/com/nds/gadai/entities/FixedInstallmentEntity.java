@@ -48,6 +48,15 @@ public class FixedInstallmentEntity {
     })
     private ProductEntity product;
 
+    @Column(name = "total_estimated_value")
+    private Double totalEstimatedValue;
+
+    @Column(name = "customer_liquidated_value")
+    private Double custLiquidationValue;
+
+    @Column(name = "admin_discount")
+    private Double adminDiscount;
+
     @Column(name = "transfer_date")
     private Timestamp transferDate;
 
@@ -108,5 +117,29 @@ public class FixedInstallmentEntity {
 
     public void setCreatorId(String creatorId) {
         this.creatorId = creatorId;
+    }
+
+    public Double getCustLiquidationValue() {
+        return custLiquidationValue;
+    }
+
+    public void setCustLiquidationValue(Double custLiquidationValue) {
+        this.custLiquidationValue = custLiquidationValue;
+    }
+
+    public Double getAdminDiscount() {
+        return adminDiscount;
+    }
+
+    public void setAdminDiscount(Double adminDiscount) {
+        this.adminDiscount = adminDiscount;
+    }
+
+    public Double getTotalEstimatedValue() {
+        return totalEstimatedValue;
+    }
+
+    public void setTotalEstimatedValue(Double totalEstimatedValue) {
+        this.totalEstimatedValue = totalEstimatedValue;
     }
 }

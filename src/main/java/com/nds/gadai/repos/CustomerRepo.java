@@ -37,5 +37,7 @@ public interface CustomerRepo extends JpaRepository<CustomerEntity, Integer>, Jp
                     + "'AND LOWER(id_number) = LOWER(:id_number)",nativeQuery = true)
         long countByIdNumber(@Param("id_number") String id);
 
-    List<CustomerInfo> findAllCustomerInfo(Specification<CustomerEntity> specification);
+    @Query(value = "SELECT id, name, id_number, phone_number FROM ms_customer WHERE rec_status = '"
+                    + GlobalConstant.REC_STATUS_ACTIVE + "'", nativeQuery = true)
+        List<CustomerInfo> findAllCustomerInfo(Specification<CustomerEntity> specification);
 }

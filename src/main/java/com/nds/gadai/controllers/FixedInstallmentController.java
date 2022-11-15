@@ -6,52 +6,54 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nds.gadai.entities.CustomerEntity;
+import com.nds.gadai.entities.FixedInstallmentEntity;
+import com.nds.gadai.models.ContractModel;
 import com.nds.gadai.models.CustomerModel;
+import com.nds.gadai.models.FixedInstallmentModel;
+import com.nds.gadai.models.PawnedGoods;
 import com.nds.gadai.models.ResponseModel;
-import com.nds.gadai.services.CustomerService;
+import com.nds.gadai.repos.interfaces.CustomerInfo;
+import com.nds.gadai.repos.interfaces.ProductInfo;
+import com.nds.gadai.services.FixedInstallmentService;
 
 @RestController
-@RequestMapping("/customer")
-public class CustomerController {
+@RequestMapping("/fixed-installment")
+public class FixedInstallmentController {
     @Autowired
-    private CustomerService customerService;
+    private FixedInstallmentService fixedInstallmentService;
 
-    @PostMapping(value = "/add")
-    public ResponseEntity<ResponseModel> doInsertPelangganController(@Valid @RequestBody CustomerModel customerModel) {
+    @GetMapping(value = "/products")
+    public ResponseEntity<ResponseModel> doGetListProdukController() {
         try {
             // Request
-            CustomerEntity customer = customerService.doInsertPelanggan(customerModel);
+            List<ProductInfo> products = fixedInstallmentService.doGetListProduk();
 
             // Response
             ResponseModel response = new ResponseModel();
-            response.setMsg("New customer is successfully added");
-            response.setData(customer);
+            response.setMsg("Request succesful");
+            response.setData(products);
 
             return ResponseEntity.ok(response);
-            }
-            
+        }
         catch (Exception e) {
-            ResponseModel response = new ResponseModel();
-            response.setMsg("Sorry, there is a failure on our server. " + e.getMessage() + e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(response);
+                ResponseModel response = new ResponseModel();
+                response.setMsg("Sorry, there is a failure on our server. " + e.getMessage());
+                e.printStackTrace();
+                return ResponseEntity.internalServerError().body(response);
         }
     }
 
-    @GetMapping(value = "/search")
+    @GetMapping(value = "/customers")
     public ResponseEntity<ResponseModel> doSearchPelangganController(@Valid @RequestBody CustomerModel customerModel) {
         try {
             // Request
-            List<CustomerEntity> customers = customerService.doSearchPelanggan(customerModel);
+            List<CustomerInfo> customers = fixedInstallmentService.doSearchPelanggan(customerModel);
 
             // Response
             ResponseModel response = new ResponseModel();
@@ -68,16 +70,37 @@ public class CustomerController {
         }
     }
 
+    @GetMapping(value = "/search")
+    public ResponseEntity<ResponseModel> doSearchTransCicTetapController(@Valid @RequestBody FixedInstallmentModel fixedInstallmentModel) {
+        try {
+            // Request
+            List<FixedInstallmentEntity> fixedInstallments = fixedInstallmentService.doSearchTransCicTetap(fixedInstallmentModel);
+
+            // Response
+            ResponseModel response = new ResponseModel();
+            response.setMsg("Request succesful");
+            response.setData(fixedInstallments);
+
+            return ResponseEntity.ok(response);
+        }
+        catch (Exception e) {
+                ResponseModel response = new ResponseModel();
+                response.setMsg("Sorry, there is a failure on our server. " + e.getMessage());
+                e.printStackTrace();
+                return ResponseEntity.internalServerError().body(response);
+        }
+    }
+
     @GetMapping(value = "/get")
-    public ResponseEntity<ResponseModel> doGetDetailPelangganController(@Valid @RequestBody CustomerModel customerModel) {
+    public ResponseEntity<ResponseModel> doGetDetailCicTetapController(@RequestParam String id) {
         try {
             // Request
-            CustomerEntity customer = customerService.doGetDetailPelanggan(customerModel);
+            FixedInstallmentEntity fixedInstallment = fixedInstallmentService.doGetDetailCicTetap(id);
 
             // Response
             ResponseModel response = new ResponseModel();
             response.setMsg("Request succesful");
-            response.setData(customer);
+            response.setData(fixedInstallment);
 
             return ResponseEntity.ok(response);
         }
@@ -89,16 +112,16 @@ public class CustomerController {
         }
     }
 
-    @PutMapping(value = "/update")
-    public ResponseEntity<ResponseModel> doUpdatePelangganController(@Valid @RequestBody CustomerModel customerModel) {
+    @GetMapping(value = "/hitung")
+    public ResponseEntity<ResponseModel> doHitungTrxCicTetapController(@RequestBody ContractModel contract) {
         try {
             // Request
-            CustomerEntity customer = customerService.doUpdatePelanggan(customerModel);
+            contract = fixedInstallmentService.doHitungTrxCicTetap(contract);
 
             // Response
             ResponseModel response = new ResponseModel();
             response.setMsg("Request succesful");
-            response.setData(customer);
+            response.setData(contract);
 
             return ResponseEntity.ok(response);
         }
@@ -110,16 +133,16 @@ public class CustomerController {
         }
     }
 
-    @DeleteMapping(value = "/delete")
-    public ResponseEntity<ResponseModel> doDeletePelangganController(@Valid @RequestBody CustomerModel customerModel) {
+    @GetMapping(value = "/save")
+    public ResponseEntity<ResponseModel> doSaveCicTetapController(@RequestBody ContractModel contract, @RequestBody List<PawnedGoods> pawnedGoods) {
         try {
             // Request
-            CustomerEntity customer = customerService.doDeletePelanggan(customerModel);
+            FixedInstallmentEntity fixedInstallment = fixedInstallmentService.doSaveTrxCicTetap(contract, pawnedGoods);
 
             // Response
             ResponseModel response = new ResponseModel();
             response.setMsg("Request succesful");
-            response.setData(customer);
+            response.setData(fixedInstallment);
 
             return ResponseEntity.ok(response);
         }
@@ -129,18 +152,5 @@ public class CustomerController {
                 e.printStackTrace();
                 return ResponseEntity.internalServerError().body(response);
         }
-    }
-
-    @GetMapping(value = "/usaha")
-    public ResponseEntity<ResponseModel> doGetListJenisUsahaController() {
-        // Request
-        String[] customer = customerService.doGetListJenisUsaha();
-
-        // Response
-        ResponseModel response = new ResponseModel();
-        response.setMsg("Request succesful");
-        response.setData(customer);
-
-        return ResponseEntity.ok(response);
     }
 }
