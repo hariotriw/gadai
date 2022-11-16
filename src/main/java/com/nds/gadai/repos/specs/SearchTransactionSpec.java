@@ -10,8 +10,6 @@ import javax.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 
 import com.nds.gadai.entities.FixedInstallmentEntiy;
-import com.nds.gadai.entities.PaymentEntity;
-import com.nds.gadai.models.FixedInstallmentModel;
 
 public class SearchTransactionSpec implements Specification<FixedInstallmentEntiy>{
 

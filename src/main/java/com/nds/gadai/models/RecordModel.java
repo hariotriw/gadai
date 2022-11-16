@@ -1,8 +1,13 @@
 package com.nds.gadai.models;
 
+import javax.validation.constraints.NotEmpty;
+
 public class RecordModel {
     // record
+    @NotEmpty
     private String actorId;
+
+    @NotEmpty
     private String recStatus;
     
     public String getActorId() {

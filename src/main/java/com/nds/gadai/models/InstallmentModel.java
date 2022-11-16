@@ -3,16 +3,35 @@ package com.nds.gadai.models;
 import java.math.BigDecimal;
 import java.security.Timestamp;
 
+import javax.validation.constraints.NotEmpty;
+
 public class InstallmentModel extends RecordModel {
+    @NotEmpty
     private Integer id;
+
+    @NotEmpty
     private String transactionNumber;
+
+    @NotEmpty
     private Integer installmentTo;
+
+    @NotEmpty
     private BigDecimal baseInstallment;
+
+    @NotEmpty
     private BigDecimal savingServiceCost;
+
+    @NotEmpty
     private BigDecimal latePenalty;
+
+    @NotEmpty
     private BigDecimal totalInstallment;
+
+    @NotEmpty
     private BigDecimal installmentStatus;
+
     private Timestamp activeInstallmentDate;
+    
     private Timestamp paidDate;
     
     public Integer getId() {

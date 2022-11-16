@@ -4,10 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +22,6 @@ import com.nds.gadai.entities.ProductEntity;
 import com.nds.gadai.exceptions.ClientException;
 import com.nds.gadai.exceptions.NotFoundException;
 import com.nds.gadai.globals.GlobalConstant;
-import com.nds.gadai.models.FixedInstallmentModel;
-import com.nds.gadai.models.PawnedGoods;
 import com.nds.gadai.repos.CustomerRepo;
 import com.nds.gadai.repos.CustomerTransactionRepo;
 import com.nds.gadai.repos.FixedInstallmentRepo;
@@ -34,7 +30,6 @@ import com.nds.gadai.repos.PawnedGoodsRepo;
 import com.nds.gadai.repos.PaymentRepo;
 import com.nds.gadai.repos.ProductRepo;
 import com.nds.gadai.repos.UserRepo;
-import com.nds.gadai.repos.specs.SearchTransactionSpec;
 import com.nds.gadai.validators.UserValidator;
 
 @Service

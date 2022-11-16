@@ -2,21 +2,49 @@ package com.nds.gadai.models;
 
 import java.math.BigDecimal;
 
-public class ProductModel extends RecordModel{
+import javax.validation.constraints.NotEmpty;
 
+public class ProductModel extends RecordModel{
+    @NotEmpty
     private Integer id;
+
+    @NotEmpty
     private String type;
+
+    @NotEmpty
     private String name;
+
+    @NotEmpty
     private String description;
+
+    @NotEmpty
     private BigDecimal ltv;
+
+    @NotEmpty
     private Integer tenor;
+
+    @NotEmpty
     private String adminOpeningType;
+
+    @NotEmpty
     private BigDecimal adminOpeningCost;
+
+    @NotEmpty
     private String adminClosingType;
+
+    @NotEmpty
     private BigDecimal adminClosingCost;
+
+    @NotEmpty
     private BigDecimal savingServicePercent;
+
+    @NotEmpty
     private Integer savingServiceNumeric;
+
+    @NotEmpty
     private BigDecimal penaltyBillPercent;
+
+    @NotEmpty
     private Integer penaltyBillNumerik;
 
     public Integer getId() {

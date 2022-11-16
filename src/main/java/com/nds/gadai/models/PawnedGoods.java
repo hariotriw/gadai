@@ -2,12 +2,24 @@ package com.nds.gadai.models;
 
 import java.math.BigDecimal;
 
+import javax.validation.constraints.NotEmpty;
+
 public class PawnedGoods extends RecordModel{
+    @NotEmpty
     private Integer id;
+
+    @NotEmpty
     private String transactionNumber;
+
+    @NotEmpty
     private String goodsName;
+
     private String description;
+
+    @NotEmpty
     private Integer amount;
+
+    @NotEmpty
     private BigDecimal pricePerUnit;
     
     public Integer getId() {

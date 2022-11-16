@@ -2,15 +2,34 @@ package com.nds.gadai.models;
 
 import java.math.BigDecimal;
 
+import javax.validation.constraints.NotEmpty;
+
 public class PaymentModel extends RecordModel {
+    @NotEmpty
     private String paymentNumber;
+
+    @NotEmpty
     private String transactionNumber;
+
+    @NotEmpty
     private BigDecimal totalInstallmentCost;
+
+    @NotEmpty
     private BigDecimal totalInstallmentPenalty;
+
+    @NotEmpty
     private BigDecimal adminClosingCost;
+
+    @NotEmpty
     private BigDecimal totalBill;
+
+    @NotEmpty
     private BigDecimal roundingUp;
+
+    @NotEmpty
     private BigDecimal totalPayment;
+
+    @NotEmpty
     private String paymentMethod;
     
     public String getPaymentNumber() {

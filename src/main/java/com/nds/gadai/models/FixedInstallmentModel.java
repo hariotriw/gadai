@@ -3,14 +3,30 @@ package com.nds.gadai.models;
 import java.math.BigDecimal;
 import java.security.Timestamp;
 
+import javax.validation.constraints.NotEmpty;
+
 public class FixedInstallmentModel extends RecordModel{
+    @NotEmpty
     private String transactionNumber;
+
+    @NotEmpty
     private String customerId;
+
+    @NotEmpty
     private String customerName;
+
+    @NotEmpty
     private Timestamp transferDate;
+
+    @NotEmpty
     private Integer productId;
+
+    @NotEmpty
     private String productName;
+
     private String productDesc;  
+
+    @NotEmpty
     private BigDecimal customerLoan;
     
     public String getTransactionNumber() {

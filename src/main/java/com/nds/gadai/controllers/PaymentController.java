@@ -1,31 +1,23 @@
 package com.nds.gadai.controllers;
 
-import java.lang.reflect.Array;
 import java.math.BigDecimal;
-import java.net.URL;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nds.gadai.entities.FixedInstallmentEntiy;
-import com.nds.gadai.entities.InstallmentEntity;
-import com.nds.gadai.entities.ProductEntity;
-import com.nds.gadai.exceptions.ClientException;
-import com.nds.gadai.exceptions.NotFoundException;
-import com.nds.gadai.models.FixedInstallmentModel;
 import com.nds.gadai.models.ResponseModel;
 import com.nds.gadai.services.PaymentService;
 
@@ -69,10 +61,9 @@ public class PaymentController {
 
     // 
     @GetMapping(value = "/transaction/{transactionNumber}")
-    public ResponseEntity<ResponseModel> doGetDetailTransactionController(@PathVariable String transactionNumber, @RequestParam String actorId) {
+    public ResponseEntity<ResponseModel> doGetDetailTransactionController(@Valid @PathVariable String transactionNumber, @RequestParam String actorId) {
         try {
             // request
-            System.out.println(actorId);
             HashMap<String, Object> result = paymentService.doGetDetailTransaction(transactionNumber, actorId.toString());
 
             // response
@@ -85,27 +76,25 @@ public class PaymentController {
 
             return ResponseEntity.ok(response);
 
-        } catch (ClientException e) {
-            ResponseModel response = new ResponseModel();
-            response.setCode(400);
-            response.setMessage("Bad Request");
-            response.setDescription(e.getMessage());
-            response.setTime(new Timestamp(System.currentTimeMillis()));
-            response.setData(null);
-            // response.setMsg(e.getMessage());
+        // } catch (ClientException e) {
+        //     ResponseModel response = new ResponseModel();
+        //     response.setCode(400);
+        //     response.setMessage("Bad Request");
+        //     response.setDescription(e.getMessage());
+        //     response.setTime(new Timestamp(System.currentTimeMillis()));
+        //     response.setData(null);
             
-            return ResponseEntity.badRequest().body(response);
+        //     return ResponseEntity.badRequest().body(response);
 
-        } catch (NotFoundException e){
-            ResponseModel response = new ResponseModel();
-            response.setCode(404);
-            response.setMessage("Not Found");
-            response.setDescription(e.getMessage());
-            response.setTime(new Timestamp(System.currentTimeMillis()));
-            response.setData(null);
-            // response.setMsg(e.getMessage());
+        // } catch (NotFoundException e){
+        //     ResponseModel response = new ResponseModel();
+        //     response.setCode(404);
+        //     response.setMessage("Not Found");
+        //     response.setDescription(e.getMessage());
+        //     response.setTime(new Timestamp(System.currentTimeMillis()));
+        //     response.setData(null);
             
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        //     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
             
         } catch (Exception e) {
             ResponseModel response = new ResponseModel();
@@ -123,6 +112,7 @@ public class PaymentController {
 
     @PostMapping(value = "/search-transaction")
     public ResponseEntity<ResponseModel> doSearchPayFixedInstallmentController (
+        @Valid
         @RequestParam String transactionNumber,
         @RequestParam String customerId,
         @RequestParam String customerName,
@@ -132,8 +122,6 @@ public class PaymentController {
     ) {
         try {
             // request
-            System.out.println("test 1");
-            // Object result = 
             HashMap<String, Object> result = paymentService.doSearchPayFixedInstallment(transactionNumber, customerId, customerName, installmentStartDate, installmentEndDate, actorId);
 
             // response
@@ -146,16 +134,16 @@ public class PaymentController {
 
             return ResponseEntity.ok(response);
 
-        } catch (ClientException e) {
-            ResponseModel response = new ResponseModel();
-            response.setCode(400);
-            response.setMessage("Bad Request");
-            response.setDescription(e.getMessage());
-            response.setTime(new Timestamp(System.currentTimeMillis()));
-            response.setData(null);
-            // response.setMsg(e.getMessage());
+        // } catch (ClientException e) {
+        //     ResponseModel response = new ResponseModel();
+        //     response.setCode(400);
+        //     response.setMessage("Bad Request");
+        //     response.setDescription(e.getMessage());
+        //     response.setTime(new Timestamp(System.currentTimeMillis()));
+        //     response.setData(null);
+        //     // response.setMsg(e.getMessage());
 
-            return ResponseEntity.badRequest().body(response);
+        //     return ResponseEntity.badRequest().body(response);
             
         } catch (Exception e) {
             ResponseModel response = new ResponseModel();
@@ -164,7 +152,6 @@ public class PaymentController {
             response.setDescription("Sorry, there is a failure on our server.");
             response.setTime(new Timestamp(System.currentTimeMillis()));
             response.setData(null);
-            // response.setMsg("Sorry, there is a failure on our server.");
             e.printStackTrace();
 
             return ResponseEntity.internalServerError().body(response);
@@ -173,6 +160,7 @@ public class PaymentController {
 
     @PutMapping(value = "/pay-installment")
     public ResponseEntity<ResponseModel> doUpdatePembayaranController (
+        @Valid
         @RequestParam String transactionNumber,
         @RequestParam String paymentMethod,
         @RequestParam BigDecimal discount,
@@ -183,10 +171,8 @@ public class PaymentController {
         try {
             // request
             System.out.println("test 1");
-            // Object result = 
             HashMap<String, Object> result = paymentService.doUpdatePembayaran(transactionNumber, paymentMethod, discount, totalPayment, selectedInstallment, actorId);
 
-            // transactionNumber.equals
             // response
             ResponseModel response = new ResponseModel();
             response.setCode(200);
@@ -197,16 +183,15 @@ public class PaymentController {
 
             return ResponseEntity.ok(response);
 
-        } catch (ClientException e) {
-            ResponseModel response = new ResponseModel();
-            response.setCode(400);
-            response.setMessage("Bad Request");
-            response.setDescription(e.getMessage());
-            response.setTime(new Timestamp(System.currentTimeMillis()));
-            response.setData(null);
-            // response.setMsg(e.getMessage());
+        // } catch (ClientException e) {
+        //     ResponseModel response = new ResponseModel();
+        //     response.setCode(400);
+        //     response.setMessage("Bad Request");
+        //     response.setDescription(e.getMessage());
+        //     response.setTime(new Timestamp(System.currentTimeMillis()));
+        //     response.setData(null);
 
-            return ResponseEntity.badRequest().body(response);
+        //     return ResponseEntity.badRequest().body(response);
             
         } catch (Exception e) {
             ResponseModel response = new ResponseModel();
@@ -215,7 +200,6 @@ public class PaymentController {
             response.setDescription("Sorry, there is a failure on our server.");
             response.setTime(new Timestamp(System.currentTimeMillis()));
             response.setData(null);
-            // response.setMsg("Sorry, there is a failure on our server.");
             e.printStackTrace();
 
             return ResponseEntity.internalServerError().body(response);
